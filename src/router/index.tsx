@@ -15,7 +15,7 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 export const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
-    element: <HomePage />,
+    element: <MainPage />,
   },
   {
     path: ROUTES.MAIN,

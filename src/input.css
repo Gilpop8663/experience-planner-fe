@@ -65,5 +65,15 @@
   }
   body {
     @apply bg-background text-foreground;
+
+    font-family: "SEOLEIMcool", sans-serif;
+    color: #373737;
   }
+}
+
+@font-face {
+  font-family: "SEOLEIMcool";
+  src: url("/src/assets/fonts/SEOLEIMcool.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
