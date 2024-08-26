@@ -20,6 +20,7 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
+    title: "냥토피아 건대점",
     reviewDeadline: "2024-08-24",
     serviceDetails:
       "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",

@@ -3,6 +3,7 @@ import { cls } from "@/utils";
 import { useState } from "react";
 
 interface Props {
+  title: string;
   reservationDate: string;
   serviceDetails: string;
   location: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Card({
+  title,
   reservationDate,
   serviceDetails,
   location,
@@ -32,7 +34,7 @@ export default function Card({
     >
       <div>
         <div className="flex justify-between items-center">
-          <span className="font-semibold text-2xl">냥토피아 건대점</span>
+          <span className="font-semibold text-2xl">{title}</span>
           <span className="cursor-pointer relative" onClick={handleActionClick}>
             <div className="rounded-full hover:bg-black/10 p-0.5">
               <EllipsisVertical />
