@@ -8,6 +8,7 @@ export const ROUTES = {
   LANDING: "/landing",
   FORGOT_PASSWORD: "/forgot-password",
   INFO: "/info",
+  REGISTER: "/register",
   HEALTH_CHECK: "/health-check",
   RESET_PASSWORD: "/reset-password/:token",
 };

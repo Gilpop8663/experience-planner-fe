@@ -18,10 +18,16 @@ import { ACCESS_TOKEN } from "./constants/localStorage.ts";
 import { onError } from "@apollo/client/link/error";
 
 interface RefreshTokenResult {
-  ok: boolean;
-  error?: string;
-  token?: string;
+  data: {
+    refreshToken: {
+      ok: boolean;
+      error?: string;
+      token?: string;
+    };
+  };
 }
+
+const fetchUrl = process.env.VITE_DB_URL || "http://localhost:3000/graphql";
 
 const errorLink = onError(({ graphQLErrors, operation, forward }) => {
   if (graphQLErrors) {
@@ -30,7 +36,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
         // Apollo Server sets code to UNAUTHENTICATED
         // when an AuthenticationError is thrown in a resolver
         return new Observable<FetchResult>((observer) => {
-          fetch("/graphql", {
+          fetch(fetchUrl, {
             // GraphQL 엔드포인트에 요청
             method: "POST",
             headers: {
@@ -51,13 +57,14 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
             credentials: "include",
           })
             .then((response) => response.json())
-            .then((data: RefreshTokenResult) => {
-              if (!data.ok) {
+            .then((result: RefreshTokenResult) => {
+              if (!result.data.refreshToken.ok) {
                 window.location.href = "/login";
                 return;
               }
 
-              const newAccessToken = data.token ?? "";
+              const newAccessToken = result.data.refreshToken.token ?? "";
+
               localStorage.setItem(ACCESS_TOKEN, newAccessToken);
 
               // 새로운 액세스 토큰으로 헤더 설정
@@ -89,7 +96,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: process.env.VITE_DB_URL || "http://localhost:3000/graphql",
+  uri: fetchUrl,
   credentials: "include",
 });
 

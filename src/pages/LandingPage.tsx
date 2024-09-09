@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 
 // 이미지 import (실제 프로젝트에 맞는 이미지로 교체 필요)
-import heroImage from "/public/hero.jpg";
-import step1Image from "/public/step1.jpg";
-import step2Image from "/public/step2.jpg";
-import step3Image from "/public/step3.jpg";
+import heroImage from "@/assets/hero.jpg";
+import step1Image from "@/assets/step1.jpg";
+import step2Image from "@/assets/step2.jpg";
+import step3Image from "@/assets/step3.jpg";
 
 // 후기 데이터
 const testimonials = [

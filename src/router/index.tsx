@@ -11,6 +11,7 @@ import LandingPage from "@/pages/LandingPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import { ROUTES } from "./routes";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import RegisterPage from "@/pages/RegisterPage";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.DETAILS,
     element: <ExperienceDetailPage />,
+  },
+  {
+    path: ROUTES.REGISTER,
+    element: <RegisterPage />,
   },
   {
     path: ROUTES.SIGN_UP,

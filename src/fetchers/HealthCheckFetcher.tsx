@@ -1,12 +1,18 @@
-import { useHealthCheck } from "../hooks/query/useHealthCheck";
+import { useMyProfile } from "@/hooks/query/user/useMyProfile";
 
 export default function HealthCheckFetcher() {
-  const { data } = useHealthCheck();
+  const { user } = useMyProfile();
+
+  console.log(user);
 
   return (
     <div>
-      <span>현재 서버 상태: </span>
-      <span>{data.healthCheck.ok ? "좋음" : "나쁨"}</span>
+      <div>
+        <div>이메일: {user.email}</div>
+        <div>아이디: {user.id}</div>
+        <div>닉네임: {user.nickname}</div>
+        <div>포인트: {user.point}</div>
+      </div>
     </div>
   );
 }
