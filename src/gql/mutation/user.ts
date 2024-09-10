@@ -63,3 +63,12 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
+
+export const LOGOUT = gql`
+  mutation {
+    logout {
+      ok
+      error
+    }
+  }
+`;
