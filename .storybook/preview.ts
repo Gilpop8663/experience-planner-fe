@@ -1,5 +1,6 @@
 import "../src/input.css";
 
+import { withRouter } from "storybook-addon-remix-react-router";
 import type { Preview } from "@storybook/react";
 
 const preview: Preview = {
@@ -11,6 +12,7 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [withRouter],
 };
 
 export default preview;
