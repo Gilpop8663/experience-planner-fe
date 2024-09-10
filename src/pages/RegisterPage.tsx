@@ -1,51 +1,17 @@
 import TabContent from "@/components/Tabs/TabContent";
 import Tabs from "@/components/Tabs/Tabs";
-import { useCreateCampaignDirectly } from "@/hooks/mutation/campaign/useCreateCampaignDirectly";
-import { useCreateCampaignFromLink } from "@/hooks/mutation/campaign/useCreateCampaignFromLink";
-import { useMyProfile } from "@/hooks/query/user/useMyProfile";
-import { useState } from "react";
+import { useRegister } from "@/hooks/pages/register/useRegister";
 
 export default function RegisterPage() {
-  const { user } = useMyProfile();
-
-  const [formData, setFormData] = useState({
-    title: "",
-    siteName: "",
-    reviewPeriod: "",
-    sponsorshipFee: "",
-    bookingLink: "",
-    productDetails: "",
-    location: "",
-    detailsLink: "",
-    siteUrl: "",
-  });
-
-  const [activeTab, setActiveTab] = useState(0);
-
-  const { handleCreateCampaignFromLink } = useCreateCampaignFromLink();
-  const { handleCreateCampaignDirectly } = useCreateCampaignDirectly();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSiteUrlSubmit = (e) => {
-    e.preventDefault();
-
-    handleCreateCampaignFromLink({
-      detailedViewLink: formData.siteUrl,
-      userId: user.id,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Form submission logic
-    console.log(formData);
-
-    // handleCreateCampaignDirectly({});
-  };
+  const {
+    activeTab,
+    handleSiteUrlSubmit,
+    setActiveTab,
+    error,
+    formData,
+    handleChange,
+    handleSubmit,
+  } = useRegister();
 
   const tabs = ["링크로 추가", "직접 입력"];
 
@@ -85,6 +51,7 @@ export default function RegisterPage() {
                 등록하기
               </button>
             </div>
+            <div className="mt-4 text-red-500">{error}</div>
             <div className="bg-gray-100 p-4 rounded-lg mt-4">
               <h3 className="text-lg font-bold text-gray-800 mb-4">
                 링크로 등록하기 튜토리얼
@@ -117,7 +84,7 @@ export default function RegisterPage() {
                 htmlFor="title"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                제목
+                제목 (필수)
               </label>
               <input
                 type="text"
@@ -130,36 +97,35 @@ export default function RegisterPage() {
                 required
               />
             </div>
-            <div className="mb-4">
+            <div className="my-4">
               <label
-                htmlFor="siteName"
+                htmlFor="platformName"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                사이트명
+                사이트명 (강남맛집, 인스타, 미블 등)
               </label>
               <input
                 type="text"
-                id="siteName"
-                name="siteName"
-                value={formData.siteName}
+                id="platformName"
+                name="platformName"
+                value={formData.platformName}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="사이트명을 입력하세요"
-                required
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="reviewPeriod"
+                htmlFor="reviewDeadline"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                리뷰 등록 기간
+                리뷰 마감날짜 (필수)
               </label>
               <input
                 type="date"
-                id="reviewPeriod"
-                name="reviewPeriod"
-                value={formData.reviewPeriod}
+                id="reviewDeadline"
+                name="reviewDeadline"
+                value={formData.reviewDeadline}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -168,16 +134,16 @@ export default function RegisterPage() {
             {/* 추가 정보 */}
             <div className="mb-4">
               <label
-                htmlFor="sponsorshipFee"
+                htmlFor="serviceAmount"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
                 협찬비
               </label>
               <input
                 type="number"
-                id="sponsorshipFee"
-                name="sponsorshipFee"
-                value={formData.sponsorshipFee}
+                id="serviceAmount"
+                name="serviceAmount"
+                value={formData.serviceAmount}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="협찬비를 입력하세요"
@@ -185,36 +151,52 @@ export default function RegisterPage() {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="bookingLink"
+                htmlFor="extraAmount"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
-                예약 링크
+                추가로 사용한 비용
               </label>
               <input
-                type="url"
-                id="bookingLink"
-                name="bookingLink"
-                value={formData.bookingLink}
+                type="number"
+                id="extraAmount"
+                name="extraAmount"
+                value={formData.extraAmount}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="예약 링크를 입력하세요"
+                placeholder="추가로 사용한 비용을 입력하세요"
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="productDetails"
+                htmlFor="reservationDate"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                방문 날짜
+              </label>
+              <input
+                type="date"
+                id="reservationDate"
+                name="reservationDate"
+                value={formData.reservationDate}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="방문 날짜를 입력하세요"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="serviceDetails"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
                 상품 제공 내역
               </label>
               <textarea
-                id="productDetails"
-                name="productDetails"
-                value={formData.productDetails}
+                id="serviceDetails"
+                name="serviceDetails"
+                value={formData.serviceDetails}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="상품 제공 내역을 입력하세요"
-                required
               />
             </div>
             <div className="mb-4">
@@ -232,21 +214,20 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="위치를 입력하세요"
-                required
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="detailsLink"
+                htmlFor="detailedViewLink"
                 className="block mb-2 text-sm font-medium text-gray-700"
               >
                 자세히 보기 링크
               </label>
               <input
                 type="url"
-                id="detailsLink"
-                name="detailsLink"
-                value={formData.detailsLink}
+                id="detailedViewLink"
+                name="detailedViewLink"
+                value={formData.detailedViewLink}
                 onChange={handleChange}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="자세히 보기 링크를 입력하세요"
