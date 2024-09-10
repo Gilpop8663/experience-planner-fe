@@ -1,25 +1,18 @@
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
+import { Campaign } from "@/types/campaign";
 import { cls } from "@/utils";
 import { useState } from "react";
 
-interface Props {
-  title: string;
-  reservationDate: string;
-  serviceDetails: string;
-  location: string;
-  detailedViewLink: string;
-  reviewDeadline: string;
-}
-
-export default function Card({
-  title,
-  reservationDate,
-  serviceDetails,
-  location,
-  detailedViewLink,
-  reviewDeadline,
-}: Props) {
+export default function Card(campaign: Campaign) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    title,
+    reservationDate,
+    serviceDetails,
+    location,
+    detailedViewLink,
+    reviewDeadline,
+  } = campaign;
 
   const handleActionClick = () => {
     setIsModalOpen((prev) => !prev);
@@ -29,7 +22,7 @@ export default function Card({
     <div
       className={cls(
         reservationDate ? "bg-[#B6E790]" : "bg-[#FFB0B0]",
-        "w-[330px] h-[510px] rounded-sm shadow-lg py-11 px-7 flex flex-col justify-between relative",
+        "w-[330px] h-[510px] rounded-sm shadow-lg py-11 px-7 flex flex-col justify-between relative overflow-scroll",
       )}
     >
       <div>
@@ -58,7 +51,9 @@ export default function Card({
           </span>
         </div>
         <div className="flex flex-col gap-7 mt-7 font-semibold">
-          <span className="text-lg">리뷰마감일: {reviewDeadline}</span>
+          <span className="text-lg">
+            리뷰마감일: {reviewDeadline?.toString()}
+          </span>
           <span className="text-lg">장소 : {location}</span>
           <span className="text-lg">제공 : {serviceDetails}</span>
           <a
@@ -72,11 +67,11 @@ export default function Card({
       </div>
       <div className="flex flex-col">
         <span className="text-lg">일정 예약</span>
-        <span className="text-sm">{reservationDate}</span>
+        <span className="text-sm">{reservationDate?.toString()}</span>
       </div>
-      <span className="font-inter font-bold text-white text-[160px] absolute right-6 bottom-6">
+      {/* <span className="font-inter font-bold text-white text-[160px] absolute right-6 bottom-6">
         {reservationDate ? "O" : "X"}
-      </span>
+      </span> */}
     </div>
   );
 }

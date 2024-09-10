@@ -9,7 +9,18 @@ export const GET_CALENDAR_CAMPAIGN_LIST = gql`
       data {
         id
         title
+        platformName
+        thumbnailUrl
+        isReserved
+        reservationDate
         reviewDeadline
+        serviceDetails
+        serviceAmount
+        extraAmount
+        location
+        detailedViewLink
+        updatedAt
+        createdAt
       }
     }
   }
@@ -24,7 +35,18 @@ export const GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE = gql`
       data {
         id
         title
+        platformName
+        thumbnailUrl
+        isReserved
+        reservationDate
         reviewDeadline
+        serviceDetails
+        serviceAmount
+        extraAmount
+        location
+        detailedViewLink
+        updatedAt
+        createdAt
       }
     }
   }
@@ -39,7 +61,18 @@ export const GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE = gql`
       data {
         id
         title
+        platformName
+        thumbnailUrl
+        isReserved
+        reservationDate
         reviewDeadline
+        serviceDetails
+        serviceAmount
+        extraAmount
+        location
+        detailedViewLink
+        updatedAt
+        createdAt
       }
     }
   }

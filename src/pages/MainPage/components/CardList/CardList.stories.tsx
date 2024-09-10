@@ -66,6 +66,51 @@ export const Primary: Story = {
         detailedViewLink: "",
         location: "서울 송파구 충민로 66 (가든파이브라이프)",
       },
+      {
+        title: "냥토피아 건대점",
+        reviewDeadline: "2024-08-24",
+        serviceDetails:
+          "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",
+        reservationDate: "2024-08-24 오후 2시 30분",
+        detailedViewLink: "",
+        location: "서울 송파구 충민로 66 (가든파이브라이프)",
+      },
+      {
+        title: "냥토피아 건대점",
+        reviewDeadline: "2024-08-24",
+        serviceDetails:
+          "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",
+        reservationDate: "",
+        detailedViewLink: "",
+        location: "서울 송파구 충민로 66 (가든파이브라이프)",
+      },
+      {
+        title: "냥토피아 건대점",
+        reviewDeadline: "2024-08-24",
+        serviceDetails:
+          "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",
+        reservationDate: "2024-08-24 오후 2시 30분",
+        detailedViewLink: "",
+        location: "서울 송파구 충민로 66 (가든파이브라이프)",
+      },
+      {
+        title: "냥토피아 건대점",
+        reviewDeadline: "2024-08-24",
+        serviceDetails:
+          "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",
+        reservationDate: "",
+        detailedViewLink: "",
+        location: "서울 송파구 충민로 66 (가든파이브라이프)",
+      },
+      {
+        title: "냥토피아 건대점",
+        reviewDeadline: "2024-08-24",
+        serviceDetails:
+          "제철 재료로 만든 우리 음식을 사계절 새롭게 선보이는 한식 컨셉의 레스토랑, 자연별곡!!",
+        reservationDate: "2024-08-24 오후 2시 30분",
+        detailedViewLink: "",
+        location: "서울 송파구 충민로 66 (가든파이브라이프)",
+      },
     ],
   },
 };

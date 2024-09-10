@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // 기본 스타일 적용
 import "../../styles/calendar.css"; // 커스텀 스타일 적용
 import Layout from "@/components/Layout";
+import CampaignListSortedByDeadlineFetcher from "@/fetchers/CampaignListSortedByDeadlineFetcher";
+import RegisterButton from "./components/RegisterButton/RegisterButton";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default function MainPage() {
   const [viewMode, setViewMode] = useState("calendar");
@@ -116,38 +119,17 @@ export default function MainPage() {
               />
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {experiences
-                .sort((a, b) => a.dDay - b.dDay)
-                .map((experience) => (
-                  <div
-                    key={experience.id}
-                    className="p-4 bg-white rounded-lg shadow-md"
-                  >
-                    <h3 className="mb-2 text-xl font-bold text-gray-800">
-                      {experience.title}
-                    </h3>
-                    <p className="mb-4 text-gray-600">
-                      D-Day: {experience.dDay}일 남음
-                    </p>
-                    <div className="flex justify-between">
-                      <a
-                        href={experience.detailsLink}
-                        className="px-4 py-2 font-semibold text-white bg-gray-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-500"
-                      >
-                        자세히 보기
-                      </a>
-                      <a
-                        href={experience.bookingLink}
-                        className="px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
-                      >
-                        예약하기
-                      </a>
-                    </div>
-                  </div>
-                ))}
+            <div className="">
+              <ErrorBoundary fallback={<span>에러</span>}>
+                <Suspense fallback={<span>로딩중...</span>}>
+                  <CampaignListSortedByDeadlineFetcher />
+                </Suspense>
+              </ErrorBoundary>
             </div>
           )}
+        </div>
+        <div className="flex justify-center">
+          <RegisterButton />
         </div>
       </div>
     </Layout>

@@ -6,7 +6,7 @@ export default function Header() {
   const { handleLogout } = useLogout();
 
   return (
-    <div className="fixed top-0 bg-brand w-full left-0 z-10">
+    <div className="fixed top-0 bg-white w-full left-0 z-10">
       <div className="h-20 px-8 border-b flex justify-between items-center">
         <Link to={ROUTES.HOME}>
           <span className="text-4xl">체험단 플래너</span>
