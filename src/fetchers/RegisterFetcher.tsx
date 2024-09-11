@@ -236,6 +236,7 @@ export default function RegisterFetcher() {
               등록하기
             </button>
           </div>
+          <div className="mt-4 text-red-500">{error}</div>
         </form>
       </TabContent>
     </>

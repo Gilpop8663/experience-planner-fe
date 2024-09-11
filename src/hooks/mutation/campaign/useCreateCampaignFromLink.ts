@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { CREATE_CAMPAIGN_FROM_LINK } from "@/gql/mutation/campaign";
+import { GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE } from "@/gql/query/campaign";
 
 interface Result {
   createCampaignFromLink: {
@@ -22,6 +23,7 @@ export const useCreateCampaignFromLink = () => {
   const handleCreateCampaignFromLink = async (input: Props) => {
     const result = await createCampaignFromLink({
       variables: { input },
+      refetchQueries: [{ query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE }],
     });
 
     return result;

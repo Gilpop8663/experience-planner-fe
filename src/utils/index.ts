@@ -36,3 +36,49 @@ export const timeAgo = (date: string) => {
     return `${years}년 전`;
   }
 };
+
+export const formatDate = (dateString?: string) => {
+  if (!dateString) {
+    return "없음";
+  }
+
+  return dateString.split("T")[0];
+};
+
+export const formatDateTime = (dateString?: string) => {
+  if (!dateString) {
+    return "";
+  }
+
+  const date = new Date(dateString);
+
+  const formattedDate = date
+    .toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    })
+    .replace("AM", "오전") // 오전
+    .replace("PM", "오후"); // 오후
+
+  const formattedArray = formattedDate.split(".").map((item) => item.trim());
+  const last = formattedArray.pop();
+
+  const result = formattedArray.join("-") + " " + last;
+
+  return result;
+};
+
+export const convertToKST = (utcDate: string | null) => {
+  if (!utcDate) {
+    return "";
+  }
+
+  const date = new Date(utcDate);
+  // KST (UTC+9)로 변환
+  date.setHours(date.getHours() + 9);
+  return date.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:mm' 형식으로 반환
+};
