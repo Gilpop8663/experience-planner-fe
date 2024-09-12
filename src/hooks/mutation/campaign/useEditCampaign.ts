@@ -2,7 +2,6 @@ import { useMutation } from "@apollo/client";
 import { EDIT_CAMPAIGN } from "@/gql/mutation/campaign";
 import { Campaign } from "@/types/campaign";
 import {
-  GET_CALENDAR_CAMPAIGN_LIST,
   GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
   GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
 } from "@/gql/query/campaign";
@@ -43,7 +42,6 @@ export const useEditCampaign = () => {
       variables: { input },
       refetchQueries: [
         { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
-        { query: GET_CALENDAR_CAMPAIGN_LIST },
         { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
       ],
       update: (cache, { data }) => {

@@ -20,6 +20,7 @@ interface Props {
 export const useGetCalendarCampaignList = (input: Props) => {
   const { data, error } = useSuspenseQuery<Result>(GET_CALENDAR_CAMPAIGN_LIST, {
     variables: { input },
+    fetchPolicy: "cache-and-network",
   });
 
   const { month, year } = input;
