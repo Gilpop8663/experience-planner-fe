@@ -45,8 +45,6 @@ export const useRegister = () => {
       userId: user.id,
     });
 
-    console.log(result);
-
     if (!result.data?.createCampaignFromLink.ok) {
       setError("체험단 등록에 실패했습니다. 올바른 URL을 입력해주세요.");
       return;

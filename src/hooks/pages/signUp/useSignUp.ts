@@ -68,8 +68,6 @@ export const useSignUp = () => {
   const checkNickname = async () => {
     const result = await handleCheckNickname({ nickname: formData.nickname });
 
-    console.log(result);
-
     if (result.data?.checkNickname.ok) {
       setIsCheckNicknameSuccess(true);
       setErrors((prev) => ({
@@ -141,8 +139,6 @@ export const useSignUp = () => {
         nickname: formData.nickname,
         password: formData.password,
       });
-
-      console.log(result.data?.createAccount);
 
       if (!result.data?.createAccount.ok) {
         setCreateAccountError(

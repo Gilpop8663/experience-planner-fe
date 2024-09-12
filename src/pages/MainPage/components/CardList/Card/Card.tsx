@@ -1,13 +1,9 @@
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
-import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
-import useOpen from "@/hooks/useOpen";
+import { useCard } from "@/hooks/pages/main/useCard";
 import { Campaign } from "@/types/campaign";
-import { cls, formatDateTime, formatDate, convertToKST } from "@/utils";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { cls, formatDateTime, formatDate } from "@/utils";
 
 export default function Card(campaign: Campaign) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const {
     title,
     reservationDate,
@@ -17,74 +13,18 @@ export default function Card(campaign: Campaign) {
     reviewDeadline,
   } = campaign;
 
-  const [formData, setFormData] = useState({
-    reservationDate: convertToKST(reservationDate || ""),
-  });
-
-  const [error, setError] = useState("");
-
-  const { handleEditCampaign } = useEditCampaign();
-
-  const { close, isOpen, toggleOpen } = useOpen();
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-    setError("");
-  };
-
-  const handleReservationReset = async () => {
-    if (!reservationDate) {
-      setError("");
-      close();
-      return;
-    }
-
-    const result = await handleEditCampaign({
-      title: campaign.title,
-      reviewDeadline: campaign.reviewDeadline,
-      campaignId: campaign.id,
-      reservationDate: new Date(0).toISOString(),
-    });
-
-    if (!result.data?.editCampaign.ok) {
-      setError("방문 날짜 선택에 실패했습니다.");
-      return;
-    }
-
-    close();
-  };
-
-  const handleReservationDateSubmit = async (
-    event: FormEvent<HTMLFormElement>,
-  ) => {
-    event.preventDefault();
-
-    const result = await handleEditCampaign({
-      title: campaign.title,
-      reviewDeadline: campaign.reviewDeadline,
-      reservationDate: formData.reservationDate,
-      campaignId: campaign.id,
-    });
-
-    if (!result.data?.editCampaign.ok) {
-      setError("방문 날짜 선택에 실패했습니다.");
-      return;
-    }
-
-    setError("");
-    close();
-  };
-
-  const handleActionClick = () => {
-    setIsModalOpen((prev) => !prev);
-  };
-
-  useEffect(() => {
-    if (isOpen && formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [isOpen]);
+  const {
+    formData,
+    formRef,
+    handleActionClick,
+    handleReservationDateSubmit,
+    isModalOpen,
+    isOpen,
+    toggleOpen,
+    error,
+    handleChange,
+    handleReservationReset,
+  } = useCard(campaign);
 
   return (
     <div
@@ -132,7 +72,7 @@ export default function Card(campaign: Campaign) {
           {serviceDetails && (
             <span className="text-lg">
               <span className="font-bold">제공: </span>
-              <span className="font-light">{serviceDetails}</span>
+              <span className="font-light break-words">{serviceDetails}</span>
             </span>
           )}
           {detailedViewLink && (

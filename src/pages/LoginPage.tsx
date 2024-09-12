@@ -36,8 +36,6 @@ const LoginPage = () => {
         password: formData.password,
       });
 
-      console.log(loginResult.data?.login);
-
       if (loginResult.data?.login.ok) {
         const { token } = loginResult.data.login;
 
@@ -47,11 +45,6 @@ const LoginPage = () => {
       }
 
       setError(loginResult.data?.login.error || "자동 로그인에 실패했습니다.");
-
-      // 예시: API 호출
-      // const response = await loginApi(formData.email, formData.password);
-      console.log("Login attempt with:", formData);
-      // 로그인 성공 시 처리 (예: 홈페이지로 리다이렉트)
     } catch (err) {
       setError("이메일 또는 비밀번호가 올바르지 않습니다.");
     }

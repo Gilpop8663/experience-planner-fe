@@ -1,15 +1,14 @@
 import { GET_CALENDAR_CAMPAIGN_LIST } from "@/gql/query/campaign";
-import { useQuery } from "@apollo/client";
+import { client } from "@/main";
+import { Campaign } from "@/types/campaign";
+import { useSuspenseQuery } from "@apollo/client";
+import { useEffect } from "react";
 
 interface Result {
   getCalendarCampaignList: {
     ok: boolean;
     error: null | string;
-    data: Array<{
-      id: number;
-      title: string;
-      reviewDeadline: string;
-    }>;
+    data: Campaign[];
   };
 }
 
@@ -19,12 +18,41 @@ interface Props {
 }
 
 export const useGetCalendarCampaignList = (input: Props) => {
-  const { data, error, loading } = useQuery<Result>(
-    GET_CALENDAR_CAMPAIGN_LIST,
-    {
-      variables: { input },
-    },
-  );
+  const { data, error } = useSuspenseQuery<Result>(GET_CALENDAR_CAMPAIGN_LIST, {
+    variables: { input },
+  });
 
-  return { data, error, loading };
+  const { month, year } = input;
+
+  // 이전 달과 다음 달 데이터 요청
+  const previousMonth = month === 1 ? 12 : month - 1;
+  const previousYear = month === 1 ? year - 1 : year;
+
+  const nextMonth = month === 12 ? 1 : month + 1;
+  const nextYear = month === 12 ? year + 1 : year;
+
+  // 캐시를 통해 이전 달과 다음 달 데이터를 미리 요청
+  // 프리패치 함수
+  const prefetchData = async (year, month) => {
+    try {
+      const { data } = await client.query({
+        query: GET_CALENDAR_CAMPAIGN_LIST,
+        variables: {
+          input: { year, month },
+        },
+        fetchPolicy: "cache-first",
+      });
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    prefetchData(previousYear, previousMonth);
+    prefetchData(nextYear, nextMonth);
+  }, [year, month]);
+
+  return { data, error };
 };

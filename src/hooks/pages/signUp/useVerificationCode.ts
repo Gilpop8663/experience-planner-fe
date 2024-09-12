@@ -8,7 +8,6 @@ export const useVerificationCode = (email: string) => {
 
   const handleVerificationCode = async () => {
     const result = await handleVerifyEmail({ email, code: value });
-    console.log(result, email);
 
     return result;
   };
