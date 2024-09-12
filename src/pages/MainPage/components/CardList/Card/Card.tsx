@@ -1,4 +1,5 @@
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
+import Modal from "@/components/Modal";
 import { useCard } from "@/hooks/pages/main/useCard";
 import { ROUTES } from "@/router/routes";
 import { Campaign } from "@/types/campaign";
@@ -27,6 +28,9 @@ export default function Card(campaign: Campaign) {
     error,
     handleChange,
     handleReservationReset,
+    deleteModal,
+    handleDeleteModalOpen,
+    handleDelete,
   } = useCard(campaign);
 
   return (
@@ -54,6 +58,7 @@ export default function Card(campaign: Campaign) {
                   </button>
                 </Link>
                 <button
+                  onClick={handleDeleteModalOpen}
                   className="text-center w-full py-0.5 hover:bg-black/5"
                   type="button"
                 >
@@ -61,6 +66,12 @@ export default function Card(campaign: Campaign) {
                 </button>
               </div>
             )}
+            <Modal
+              title={title}
+              isOpen={deleteModal.isOpen}
+              onClose={deleteModal.close}
+              onConfirm={handleDelete}
+            />
           </span>
         </div>
         <div className="flex flex-col gap-7 mt-7 font-inter">

@@ -36,7 +36,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container  items-end gap-4 justify-start ">
           {slides.map((item, index) => (
-            <div key={index} className="">
+            <div key={item.id} className="">
               <div className="mb-5">
                 {numbers.includes(index) && (
                   <span className="text-5xl text-black">{index + 1}</span>

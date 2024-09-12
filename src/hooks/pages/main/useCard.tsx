@@ -1,3 +1,4 @@
+import { useDeleteCampaign } from "@/hooks/mutation/campaign/useDeleteCampaign";
 import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import useOpen from "@/hooks/useOpen";
 import { Campaign } from "@/types/campaign";
@@ -17,8 +18,10 @@ export const useCard = (campaign: Campaign) => {
   const [error, setError] = useState("");
 
   const { handleEditCampaign } = useEditCampaign();
+  const { handleDeleteCampaign } = useDeleteCampaign();
 
   const { close, isOpen, toggleOpen } = useOpen();
+  const deleteModal = useOpen();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -73,6 +76,16 @@ export const useCard = (campaign: Campaign) => {
     setIsModalOpen((prev) => !prev);
   };
 
+  const handleDeleteModalOpen = () => {
+    deleteModal.open();
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = async () => {
+    await handleDeleteCampaign({ campaignId: campaign.id });
+    deleteModal.close();
+  };
+
   useEffect(() => {
     if (isOpen && formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
@@ -90,5 +103,8 @@ export const useCard = (campaign: Campaign) => {
     handleChange,
     handleReservationReset,
     error,
+    deleteModal,
+    handleDeleteModalOpen,
+    handleDelete,
   };
 };
