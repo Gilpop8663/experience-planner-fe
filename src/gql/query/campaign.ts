@@ -77,3 +77,28 @@ export const GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE = gql`
     }
   }
 `;
+
+export const GET_CAMPAIGN_DETAIL = gql`
+  query ($input: GetCampaignDetailInput!) {
+    getCampaignDetail(input: $input) {
+      ok
+      error
+      data {
+        id
+        title
+        platformName
+        thumbnailUrl
+        isReserved
+        reservationDate
+        reviewDeadline
+        serviceDetails
+        serviceAmount
+        extraAmount
+        location
+        detailedViewLink
+        updatedAt
+        createdAt
+      }
+    }
+  }
+`;

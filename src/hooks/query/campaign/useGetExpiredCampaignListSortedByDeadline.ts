@@ -1,15 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE } from "@/gql/query/campaign";
+import { Campaign } from "@/types/campaign";
 
 interface Result {
   getExpiredCampaignListSortedByDeadline: {
     ok: boolean;
     error: null | string;
-    data: Array<{
-      id: number;
-      title: string;
-      reviewDeadline: string;
-    }>;
+    data: Campaign[];
   };
 }
 

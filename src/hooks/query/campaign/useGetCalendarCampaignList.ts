@@ -24,7 +24,6 @@ export const useGetCalendarCampaignList = (input: Props) => {
 
   const { month, year } = input;
 
-  // 이전 달과 다음 달 데이터 요청
   const previousMonth = month === 1 ? 12 : month - 1;
   const previousYear = month === 1 ? year - 1 : year;
 
@@ -32,8 +31,7 @@ export const useGetCalendarCampaignList = (input: Props) => {
   const nextYear = month === 12 ? year + 1 : year;
 
   // 캐시를 통해 이전 달과 다음 달 데이터를 미리 요청
-  // 프리패치 함수
-  const prefetchData = async (year, month) => {
+  const prefetchData = async (year: number, month: number) => {
     try {
       const { data } = await client.query({
         query: GET_CALENDAR_CAMPAIGN_LIST,
@@ -52,7 +50,7 @@ export const useGetCalendarCampaignList = (input: Props) => {
   useEffect(() => {
     prefetchData(previousYear, previousMonth);
     prefetchData(nextYear, nextMonth);
-  }, [year, month]);
+  }, [year, month, previousMonth, previousYear, nextMonth, nextYear]);
 
   return { data, error };
 };

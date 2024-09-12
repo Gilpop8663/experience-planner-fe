@@ -1,10 +1,13 @@
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
 import { useCard } from "@/hooks/pages/main/useCard";
+import { ROUTES } from "@/router/routes";
 import { Campaign } from "@/types/campaign";
 import { cls, formatDateTime, formatDate } from "@/utils";
+import { Link } from "react-router-dom";
 
 export default function Card(campaign: Campaign) {
   const {
+    id,
     title,
     reservationDate,
     serviceDetails,
@@ -42,12 +45,14 @@ export default function Card(campaign: Campaign) {
             </div>
             {isModalOpen && (
               <div className="bg-white border absolute w-32 justify-center rounded-sm text-xs right-6 -top-1">
-                <button
-                  className="text-center w-full border-b py-0.5 hover:bg-black/5"
-                  type="button"
-                >
-                  체험 정보 수정
-                </button>
+                <Link to={`${ROUTES.REGISTER}/edit/${id}`}>
+                  <button
+                    className="text-center w-full border-b py-0.5 hover:bg-black/5"
+                    type="button"
+                  >
+                    체험 정보 수정
+                  </button>
+                </Link>
                 <button
                   className="text-center w-full py-0.5 hover:bg-black/5"
                   type="button"

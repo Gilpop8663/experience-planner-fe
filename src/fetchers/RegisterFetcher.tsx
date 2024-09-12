@@ -169,7 +169,7 @@ export default function RegisterFetcher() {
               방문 날짜
             </label>
             <input
-              type="date"
+              type="datetime-local"
               id="reservationDate"
               name="reservationDate"
               value={formData.reservationDate}
@@ -190,6 +190,7 @@ export default function RegisterFetcher() {
               name="serviceDetails"
               value={formData.serviceDetails}
               onChange={handleChange}
+              rows={20}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="상품 제공 내역을 입력하세요"
             />

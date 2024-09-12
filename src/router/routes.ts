@@ -9,6 +9,7 @@ export const ROUTES = {
   FORGOT_PASSWORD: "/forgot-password",
   INFO: "/info",
   REGISTER: "/register",
+  EDIT_REGISTER: "/register/edit/:id",
   HEALTH_CHECK: "/health-check",
   RESET_PASSWORD: "/reset-password/:token",
 };

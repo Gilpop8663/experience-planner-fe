@@ -5,10 +5,12 @@ import RegisterButton from "./components/RegisterButton/RegisterButton";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import CampaignListByCalendarFetcher from "@/fetchers/CampaignListByCalendarFetcher";
 
-export default function MainPage() {
-  const [viewMode, setViewMode] = useState("calendar");
+type ViewMode = "cards" | "calendar";
 
-  const handleViewChange = (mode) => {
+export default function MainPage() {
+  const [viewMode, setViewMode] = useState<ViewMode>("cards");
+
+  const handleViewChange = (mode: ViewMode) => {
     setViewMode(mode);
   };
 

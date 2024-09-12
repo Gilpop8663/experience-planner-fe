@@ -1,6 +1,10 @@
 import { useMutation } from "@apollo/client";
 import { CREATE_CAMPAIGN_DIRECTLY } from "@/gql/mutation/campaign";
-import { GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE } from "@/gql/query/campaign";
+import {
+  GET_CALENDAR_CAMPAIGN_LIST,
+  GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
+  GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
+} from "@/gql/query/campaign";
 
 interface Result {
   createCampaignDirectly: {
@@ -31,7 +35,11 @@ export const useCreateCampaignDirectly = () => {
   const handleCreateCampaignDirectly = async (input: Props) => {
     const result = await createCampaignDirectly({
       variables: { input },
-      refetchQueries: [{ query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE }],
+      refetchQueries: [
+        { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+        { query: GET_CALENDAR_CAMPAIGN_LIST },
+        { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+      ],
     });
 
     return result;
