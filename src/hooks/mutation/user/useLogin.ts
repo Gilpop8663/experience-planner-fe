@@ -1,4 +1,6 @@
 import { LOGIN } from "@/gql/mutation/user";
+import { ME } from "@/gql/query/user";
+import { client } from "@/main";
 import { useMutation } from "@apollo/client";
 
 interface Result {
@@ -25,5 +27,18 @@ export const useLogin = () => {
     return result;
   };
 
-  return { handleLogin, data, error };
+  const prefetchMyProfile = async () => {
+    try {
+      const { data } = await client.query({
+        query: ME,
+        fetchPolicy: "cache-first",
+      });
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  return { handleLogin, data, error, prefetchMyProfile };
 };

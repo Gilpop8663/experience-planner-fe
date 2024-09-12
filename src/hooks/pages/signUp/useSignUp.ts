@@ -51,7 +51,7 @@ export const useSignUp = () => {
   const [verificationError, setVerificationError] = useState(""); // 오류 메시지 상태
   const [createAccountError, setCreateAccountError] = useState(""); // 오류 메시지 상태
   const { handleCreateAccount } = useCreateAccount();
-  const { handleLogin } = useLogin();
+  const { handleLogin, prefetchMyProfile } = useLogin();
 
   const handleVerificationCode = async () => {
     const result = await verificationCode.handleVerificationCode();
@@ -157,6 +157,7 @@ export const useSignUp = () => {
         const { token } = loginResult.data.login;
 
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
+        await prefetchMyProfile();
         navigate("/?signup=success");
         return;
       }

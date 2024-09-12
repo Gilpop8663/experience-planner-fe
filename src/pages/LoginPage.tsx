@@ -15,7 +15,7 @@ const LoginPage = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const { handleLogin } = useLogin();
+  const { handleLogin, prefetchMyProfile } = useLogin();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -40,6 +40,7 @@ const LoginPage = () => {
         const { token } = loginResult.data.login;
 
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
+        await prefetchMyProfile();
         navigate("/?signup=success");
         return;
       }
