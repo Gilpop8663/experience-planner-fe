@@ -1,166 +1,287 @@
-import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import Layout from "@/components/Layout";
+import { useMyProfile } from "@/hooks/query/user/useMyProfile";
+import useOpen from "@/hooks/useOpen";
+import { Eye, EyeOff } from "lucide-react";
+import { useEditProfile } from "@/hooks/mutation/user/useEditProfile";
+import { useCheckPassword } from "@/hooks/mutation/user/useCheckPassword";
+
+interface FormData {
+  prevPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  prevPassword: string;
+  password: string;
+  confirmPassword: string;
+  editPasswordError: string;
+}
 
 const ExperienceRegistration: React.FC = () => {
-  const [linkInput, setLinkInput] = useState("");
-  const [manualInput, setManualInput] = useState({
-    title: "",
-    siteName: "",
-    reviewPeriod: "",
-    sponsorshipFee: "",
-    reservationLink: "",
-    productDetails: "",
-    location: "",
-    detailsLink: "",
+  const { user } = useMyProfile();
+  const { open, close, isOpen } = useOpen();
+  const [formData, setFormData] = useState<FormData>({
+    prevPassword: "",
+    password: "",
+    confirmPassword: "",
   });
+  const [showPassword, setShowPassword] = useState({
+    prevPassword: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const [errors, setErrors] = useState<FormErrors>({
+    prevPassword: "",
+    password: "",
+    confirmPassword: "",
+    editPasswordError: "",
+  });
+  const { handleEditProfile } = useEditProfile();
+  const { handleCheckPassword } = useCheckPassword();
 
-  const handleLinkSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 링크 처리 로직
-    console.log("Submitted link:", linkInput);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleManualSubmit = (e: React.FormEvent) => {
+  const handleShowPassword = (kind: "prev" | "password" | "confirm") => {
+    if (kind === "prev") {
+      setShowPassword((prev) => ({
+        ...prev,
+        prevPassword: !prev.prevPassword,
+      }));
+      return;
+    }
+
+    if (kind === "password") {
+      setShowPassword((prev) => ({
+        ...prev,
+        password: !prev.password,
+      }));
+      return;
+    }
+
+    setShowPassword((prev) => ({
+      ...prev,
+      confirmPassword: !prev.confirmPassword,
+    }));
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {
+      editPasswordError: "",
+      prevPassword: "",
+      password: "",
+      confirmPassword: "",
+    };
+
+    if (!formData.password) newErrors.password = "비밀번호를 입력해주세요.";
+    else if (formData.password.length < 8)
+      newErrors.password = "비밀번호는 8자 이상이어야 합니다.";
+
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((error) => error === "");
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // 수동 입력 처리 로직
-    console.log("Submitted manual input:", manualInput);
+    if (validateForm()) {
+      const passwordResult = await handleCheckPassword({
+        password: formData.prevPassword,
+      });
+
+      if (!passwordResult.data?.checkPassword.ok) {
+        setErrors((prev) => ({
+          ...prev,
+          prevPassword:
+            passwordResult.data?.checkPassword.error ||
+            "비밀번호가 맞지 않습니다.",
+        }));
+
+        return;
+      }
+
+      const result = await handleEditProfile({
+        nickname: user.nickname,
+        password: formData.password,
+      });
+
+      if (!result.data?.editProfile.ok) {
+        setErrors((prev) => ({
+          ...prev,
+          editPasswordError:
+            result.data?.editProfile.error || "비밀번호 변경에 실패했습니다.",
+        }));
+        return;
+      }
+
+      setFormData({
+        confirmPassword: "",
+        password: "",
+        prevPassword: "",
+      });
+
+      close();
+    }
   };
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
-        <CardTitle>체험 등록</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Tabs defaultValue="link" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="link">링크로 추가</TabsTrigger>
-            <TabsTrigger value="manual">직접 입력</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="link">
-            <form onSubmit={handleLinkSubmit} className="space-y-4">
+    <Layout>
+      <Card className="w-full max-w-3xl mx-auto mt-28">
+        <CardHeader>
+          <CardTitle>사용자 정보</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!isOpen && (
+            <div className="space-y-4">
               <div className="flex items-center space-x-2">
-                <Label htmlFor="link-input">체험단 링크</Label>
+                <span>이메일: </span>
+                <span>{user.email}</span>
               </div>
-              <Input
-                id="link-input"
-                placeholder="https://example.com/experience"
-                value={linkInput}
-                onChange={(e) => setLinkInput(e.target.value)}
-              />
-              <Button type="submit">링크로 추가하기</Button>
-            </form>
-          </TabsContent>
+              <div className="flex items-center space-x-2">
+                <span>닉네임: </span>
+                <span>{user.nickname}</span>
+              </div>
+              <div className="flex gap-8">
+                <Button onClick={open}>비밀번호 변경하기</Button>
+                <Button className="bg-red-600">회원 탈퇴하기</Button>
+              </div>
+            </div>
+          )}
+          {isOpen && (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <span>이메일: </span>
+                <span>{user.email}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>닉네임: </span>
+                <span>{user.nickname}</span>
+              </div>
+              <div>
+                <Label htmlFor="prevPassword">이전 비밀번호</Label>
+                <div className="mt-1 relative">
+                  <Input
+                    id="prevPassword"
+                    name="prevPassword"
+                    type={showPassword.prevPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    minLength={8}
+                    maxLength={64}
+                    required
+                    value={formData.prevPassword}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => handleShowPassword("prev")}
+                  >
+                    {showPassword.prevPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                  {errors.prevPassword && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {errors.prevPassword}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="password">새로운 비밀번호</Label>
+                <div className="mt-1 relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword.password ? "text" : "password"}
+                    autoComplete="new-password"
+                    minLength={8}
+                    maxLength={64}
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => handleShowPassword("password")}
+                  >
+                    {showPassword.password ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                  {errors.password && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {errors.password}
+                    </p>
+                  )}
+                </div>
+              </div>
 
-          <TabsContent value="manual">
-            <form onSubmit={handleManualSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="title">제목</Label>
-                <Input
-                  id="title"
-                  value={manualInput.title}
-                  onChange={(e) =>
-                    setManualInput({ ...manualInput, title: e.target.value })
-                  }
-                />
+                <Label htmlFor="confirmPassword">새로운 비밀번호 확인</Label>
+                <div className="mt-1 relative">
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showPassword.confirmPassword ? "text" : "password"}
+                    autoComplete="new-password"
+                    required
+                    minLength={8}
+                    maxLength={64}
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => handleShowPassword("confirm")}
+                  >
+                    {showPassword.confirmPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400" />
+                    )}
+                  </button>
+                  {errors.confirmPassword && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {errors.confirmPassword}
+                    </p>
+                  )}
+                </div>
               </div>
-              <div>
-                <Label htmlFor="siteName">사이트명</Label>
-                <Input
-                  id="siteName"
-                  value={manualInput.siteName}
-                  onChange={(e) =>
-                    setManualInput({ ...manualInput, siteName: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="reviewPeriod">리뷰 등록 기간</Label>
-                <Input
-                  id="reviewPeriod"
-                  value={manualInput.reviewPeriod}
-                  onChange={(e) =>
-                    setManualInput({
-                      ...manualInput,
-                      reviewPeriod: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="sponsorshipFee">협찬비</Label>
-                <Input
-                  id="sponsorshipFee"
-                  value={manualInput.sponsorshipFee}
-                  onChange={(e) =>
-                    setManualInput({
-                      ...manualInput,
-                      sponsorshipFee: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="reservationLink">예약하기 링크</Label>
-                <Input
-                  id="reservationLink"
-                  value={manualInput.reservationLink}
-                  onChange={(e) =>
-                    setManualInput({
-                      ...manualInput,
-                      reservationLink: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="productDetails">상품 제공 내역</Label>
-                <Textarea
-                  id="productDetails"
-                  value={manualInput.productDetails}
-                  onChange={(e) =>
-                    setManualInput({
-                      ...manualInput,
-                      productDetails: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="location">위치</Label>
-                <Input
-                  id="location"
-                  value={manualInput.location}
-                  onChange={(e) =>
-                    setManualInput({ ...manualInput, location: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="detailsLink">자세히 보기 링크</Label>
-                <Input
-                  id="detailsLink"
-                  value={manualInput.detailsLink}
-                  onChange={(e) =>
-                    setManualInput({
-                      ...manualInput,
-                      detailsLink: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <Button type="submit">직접 입력하여 추가하기</Button>
+              <Button type="submit">저장하기</Button>
             </form>
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-    </Card>
+          )}
+        </CardContent>
+      </Card>
+      <Card className="w-full max-w-3xl  mx-auto mt-4">
+        <CardHeader>
+          <CardTitle>종료된 캠페인</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2"></ul>
+        </CardContent>
+      </Card>
+    </Layout>
   );
 };
 

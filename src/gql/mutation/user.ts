@@ -64,6 +64,24 @@ export const RESET_PASSWORD = gql`
   }
 `;
 
+export const EDIT_PROFILE = gql`
+  mutation ($input: EditProfileInput!) {
+    editProfile(input: $input) {
+      ok
+      error
+    }
+  }
+`;
+
+export const CHECK_PASSWORD = gql`
+  mutation ($input: CheckPasswordInput!) {
+    checkPassword(input: $input) {
+      ok
+      error
+    }
+  }
+`;
+
 export const LOGOUT = gql`
   mutation {
     logout {

@@ -5,7 +5,6 @@ import ExperienceDetailPage from "@/pages/DetailPage";
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
 import HealthCheckPage from "@/pages/HealthCheckPage";
-import MainPage2 from "@/pages/MainPage2";
 import LandingPage from "@/pages/LandingPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import { ROUTES } from "./routes";
@@ -28,11 +27,6 @@ const routerData: RouterBase[] = [
   {
     path: ROUTES.MAIN,
     element: <MainPage />,
-    withAuth: true,
-  },
-  {
-    path: ROUTES.MAIN2,
-    element: <MainPage2 />,
     withAuth: true,
   },
   {
