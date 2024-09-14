@@ -31,6 +31,7 @@ export default function Card(campaign: Campaign) {
     deleteModal,
     handleDeleteModalOpen,
     handleDelete,
+    close,
   } = useCard(campaign);
 
   return (
@@ -118,12 +119,22 @@ export default function Card(campaign: Campaign) {
             onSubmit={handleReservationDateSubmit}
             className="bg-white p-4 rounded-md mt-4"
           >
-            <label
-              htmlFor="reservationDate"
-              className="block mb-2 text-sm font-medium text-gray-700"
-            >
-              방문 날짜
-            </label>
+            <div className="flex justify-between items-center mb-2">
+              <label
+                htmlFor="reservationDate"
+                className="block mb-2 text-sm font-medium text-gray-700"
+              >
+                방문 날짜
+              </label>
+              <button
+                onClick={close}
+                type="button"
+                className="text-bold"
+                title="닫기"
+              >
+                X
+              </button>
+            </div>
             <input
               type="datetime-local"
               id="reservationDate"

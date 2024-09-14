@@ -31,9 +31,10 @@ export const useRegister = () => {
 
   const [activeTab, setActiveTab] = useState(0);
 
-  const { handleCreateCampaignFromLink } = useCreateCampaignFromLink();
-  const { handleCreateCampaignDirectly } = useCreateCampaignDirectly();
-  const { handleEditCampaign } = useEditCampaign();
+  const { handleCreateCampaignFromLink, loading } = useCreateCampaignFromLink();
+  const { handleCreateCampaignDirectly, loading: directLoading } =
+    useCreateCampaignDirectly();
+  const { handleEditCampaign, loading: editLoading } = useEditCampaign();
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
@@ -54,6 +55,8 @@ export const useRegister = () => {
 
   const handleSiteUrlSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (loading) return;
 
     if (data.getCampaignDetail.ok) {
       setError("직접 입력하여 수정하는 것만 가능합니다.");
@@ -88,6 +91,8 @@ export const useRegister = () => {
       title,
     } = formData;
 
+    if (directLoading || editLoading) return;
+
     if (data.getCampaignDetail.ok) {
       const result = await handleEditCampaign({
         campaignId: Number(id),
@@ -96,7 +101,9 @@ export const useRegister = () => {
         serviceAmount,
         location,
         platformName,
-        reservationDate,
+        reservationDate: reservationDate
+          ? reservationDate
+          : new Date(0).toISOString(),
         reviewDeadline,
         serviceDetails,
         detailedViewLink,
@@ -166,5 +173,7 @@ export const useRegister = () => {
     handleChange,
     error,
     handleSubmit,
+    siteUrlLoading: loading,
+    directLoading: directLoading || editLoading,
   };
 };

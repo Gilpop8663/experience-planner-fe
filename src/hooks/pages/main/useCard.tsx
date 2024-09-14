@@ -106,5 +106,6 @@ export const useCard = (campaign: Campaign) => {
     deleteModal,
     handleDeleteModalOpen,
     handleDelete,
+    close,
   };
 };

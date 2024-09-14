@@ -35,7 +35,8 @@ interface CampaignListResult {
 }
 
 export const useEditCampaign = () => {
-  const [editCampaign, { data, error }] = useMutation<Result>(EDIT_CAMPAIGN);
+  const [editCampaign, { data, error, loading }] =
+    useMutation<Result>(EDIT_CAMPAIGN);
 
   const handleEditCampaign = async (input: Props) => {
     const result = await editCampaign({
@@ -76,5 +77,5 @@ export const useEditCampaign = () => {
     return result;
   };
 
-  return { handleEditCampaign, data, error };
+  return { handleEditCampaign, data, error, loading };
 };

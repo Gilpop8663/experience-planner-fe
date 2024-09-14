@@ -853,6 +853,14 @@ button.rbc-input::-moz-focus-inner {
   background-color: #c94a19;
 }
 
+.event_holiday {
+  background-color: #fc4c4e;
+}
+
+.event_holiday:hover {
+  background-color: #fa4246;
+}
+
 .event_reservation {
   background-color: #3a8eba;
 }

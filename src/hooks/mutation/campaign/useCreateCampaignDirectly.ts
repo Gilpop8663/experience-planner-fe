@@ -27,9 +27,8 @@ interface Props {
 }
 
 export const useCreateCampaignDirectly = () => {
-  const [createCampaignDirectly, { data, error }] = useMutation<Result>(
-    CREATE_CAMPAIGN_DIRECTLY,
-  );
+  const [createCampaignDirectly, { data, error, loading }] =
+    useMutation<Result>(CREATE_CAMPAIGN_DIRECTLY);
 
   const handleCreateCampaignDirectly = async (input: Props) => {
     const result = await createCampaignDirectly({
@@ -43,5 +42,5 @@ export const useCreateCampaignDirectly = () => {
     return result;
   };
 
-  return { handleCreateCampaignDirectly, data, error };
+  return { handleCreateCampaignDirectly, data, error, loading };
 };

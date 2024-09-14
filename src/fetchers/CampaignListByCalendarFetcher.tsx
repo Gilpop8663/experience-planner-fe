@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import { useState } from "react";
 import { Campaign } from "@/types/campaign";
+import { holidayEvents } from "@/constants/holiday";
 
 dayjs.locale("ko");
 dayjs().format("YYYY-MM-DD ddd HH:mm:ss");
@@ -19,7 +20,7 @@ dayjs().format("YYYY-MM-DD ddd HH:mm:ss");
 const localizer = dayjsLocalizer(dayjs);
 const now = new Date();
 
-type CampaignType = "deadline" | "reservation";
+type CampaignType = "deadline" | "reservation" | "holiday";
 
 const formattedCampaign = (campaignList: Campaign[], kind: CampaignType) => {
   if (kind === "reservation") {
@@ -75,7 +76,7 @@ export default function CampaignListByCalendarFetcher() {
     "reservation",
   );
 
-  const myEvents = [...deadlineEvents, ...reservationEvents];
+  const myEvents = [...holidayEvents, ...deadlineEvents, ...reservationEvents];
 
   return (
     <div>
@@ -91,6 +92,7 @@ export default function CampaignListByCalendarFetcher() {
         style={{ height: "65vh" }}
         views={["month", "week"]}
         defaultView="month"
+        showAllEvents
         messages={{
           next: "다음",
           previous: "이전",
@@ -126,6 +128,10 @@ export default function CampaignListByCalendarFetcher() {
             return {
               className: "event_deadline",
             };
+          }
+
+          if (event.kind === "holiday") {
+            return { className: "event_holiday" };
           }
 
           return { className: "event_reservation" };
@@ -180,9 +186,19 @@ interface Props extends Event {
 }
 
 function EventContent({ title, event }: Props) {
-  return (
-    <span>
-      [{event.kind === "reservation" ? "방문" : "마감"}] {title}
-    </span>
-  );
+  const getSubtitle = () => {
+    if (event.kind === "reservation") {
+      return "[방문] ";
+    }
+
+    if (event.kind === "deadline") {
+      return "[마감] ";
+    }
+
+    if (event.kind === "holiday") {
+      return "";
+    }
+  };
+
+  return <span>{`${getSubtitle()}${title}`}</span>;
 }

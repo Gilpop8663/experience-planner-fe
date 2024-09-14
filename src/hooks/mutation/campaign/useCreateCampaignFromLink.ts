@@ -19,9 +19,8 @@ interface Props {
 }
 
 export const useCreateCampaignFromLink = () => {
-  const [createCampaignFromLink, { data, error }] = useMutation<Result>(
-    CREATE_CAMPAIGN_FROM_LINK,
-  );
+  const [createCampaignFromLink, { data, error, loading }] =
+    useMutation<Result>(CREATE_CAMPAIGN_FROM_LINK);
 
   const handleCreateCampaignFromLink = async (input: Props) => {
     const result = await createCampaignFromLink({
@@ -35,5 +34,5 @@ export const useCreateCampaignFromLink = () => {
     return result;
   };
 
-  return { handleCreateCampaignFromLink, data, error };
+  return { handleCreateCampaignFromLink, data, error, loading };
 };

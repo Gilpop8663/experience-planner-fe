@@ -23,6 +23,7 @@
     "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.2.1",
     "graphql": "^16.8.1",
+    "korean-lunar-calendar": "^0.3.6",
     "lucide-react": "^0.427.0",
     "react": "^18.2.0",
     "react-big-calendar": "^1.13.4",

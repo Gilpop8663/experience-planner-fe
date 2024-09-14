@@ -1,5 +1,6 @@
 import TabContent from "@/components/Tabs/TabContent";
 import Tabs from "@/components/Tabs/Tabs";
+import { Button } from "@/components/ui/button";
 import { useRegister } from "@/hooks/pages/register/useRegister";
 
 export default function RegisterFetcher() {
@@ -11,6 +12,8 @@ export default function RegisterFetcher() {
     formData,
     handleChange,
     handleSubmit,
+    directLoading,
+    siteUrlLoading,
   } = useRegister();
 
   const tabs = ["링크로 추가", "직접 입력"];
@@ -41,12 +44,13 @@ export default function RegisterFetcher() {
             />
           </div>
           <div className="flex justify-center mt-4">
-            <button
+            <Button
               type="submit"
-              className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
+              disabled={siteUrlLoading}
+              className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 disabled:cursor-not-allowed"
             >
               등록하기
-            </button>
+            </Button>
           </div>
           <div className="mt-4 text-red-500">{error}</div>
           <div className="bg-gray-100 p-4 rounded-lg mt-4">
@@ -62,13 +66,16 @@ export default function RegisterFetcher() {
               </li>
               <li className="text-gray-700">
                 현재는 강남맛집, 미블, 레뷰, 리뷰노트만 가능합니다.
-                <div className="mt-2 p-3 bg-white border border-gray-300 rounded-md">
-                  <code className="block text-blue-600">
-                    다른 체험단이나 기능을 원하신다면 디스코드나 블로그에 댓글로
-                    달아주세요!
-                  </code>
-                </div>
               </li>
+              <li className="text-gray-700">
+                체험단 링크로 등록 시 약간의 시간이 걸릴 수 있습니다.
+              </li>
+              <div className="mt-2 p-3 bg-white border border-gray-300 rounded-md">
+                <code className="block text-blue-600">
+                  다른 체험단이나 기능을 원하신다면 디스코드나 블로그에 댓글로
+                  달아주세요!
+                </code>
+              </div>
             </ol>
           </div>
         </form>
@@ -237,12 +244,13 @@ export default function RegisterFetcher() {
             />
           </div>
           <div className="flex justify-center mt-4">
-            <button
+            <Button
               type="submit"
+              disabled={directLoading}
               className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
             >
               등록하기
-            </button>
+            </Button>
           </div>
           <div className="mt-4 text-red-500">{error}</div>
         </form>
