@@ -1,5 +1,5 @@
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
-import Modal from "@/components/Modal";
+import DeleteCardModal from "@/components/modal/DeleteCardModal";
 import { useCard } from "@/hooks/pages/main/useCard";
 import { ROUTES } from "@/router/routes";
 import { Campaign } from "@/types/campaign";
@@ -66,7 +66,7 @@ export default function Card(campaign: Campaign) {
                 </button>
               </div>
             )}
-            <Modal
+            <DeleteCardModal
               title={title}
               isOpen={deleteModal.isOpen}
               onClose={deleteModal.close}

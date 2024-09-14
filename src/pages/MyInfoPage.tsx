@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, Suspense, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,9 @@ import useOpen from "@/hooks/useOpen";
 import { Eye, EyeOff } from "lucide-react";
 import { useEditProfile } from "@/hooks/mutation/user/useEditProfile";
 import { useCheckPassword } from "@/hooks/mutation/user/useCheckPassword";
+import ExpiredCampaignListSortedByDeadline from "@/fetchers/ExpiredCampaignListSortedByDeadline";
+import { useDeleteAccount } from "@/hooks/mutation/user/useDeleteAccount";
+import DeleteAccountModal from "@/components/modal/DeleteAccountModal";
 
 interface FormData {
   prevPassword: string;
@@ -42,8 +45,10 @@ const ExperienceRegistration: React.FC = () => {
     confirmPassword: "",
     editPasswordError: "",
   });
+  const deleteModal = useOpen();
   const { handleEditProfile } = useEditProfile();
   const { handleCheckPassword } = useCheckPassword();
+  const { handleDeleteAccount } = useDeleteAccount();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -138,6 +143,11 @@ const ExperienceRegistration: React.FC = () => {
     }
   };
 
+  const handleDelete = async () => {
+    await handleDeleteAccount({ userId: user.id });
+    deleteModal.close();
+  };
+
   return (
     <Layout>
       <Card className="w-full max-w-3xl mx-auto mt-28">
@@ -155,10 +165,7 @@ const ExperienceRegistration: React.FC = () => {
                 <span>닉네임: </span>
                 <span>{user.nickname}</span>
               </div>
-              <div className="flex gap-8">
-                <Button onClick={open}>비밀번호 변경하기</Button>
-                <Button className="bg-red-600">회원 탈퇴하기</Button>
-              </div>
+              <Button onClick={open}>비밀번호 변경하기</Button>
             </div>
           )}
           {isOpen && (
@@ -178,7 +185,7 @@ const ExperienceRegistration: React.FC = () => {
                     id="prevPassword"
                     name="prevPassword"
                     type={showPassword.prevPassword ? "text" : "password"}
-                    autoComplete="new-password"
+                    autoComplete="current-password"
                     minLength={8}
                     maxLength={64}
                     required
@@ -273,13 +280,32 @@ const ExperienceRegistration: React.FC = () => {
           )}
         </CardContent>
       </Card>
-      <Card className="w-full max-w-3xl  mx-auto mt-4">
+      <div className="flex justify-center p-8">
+        <Card className="w-full max-w-screen-2xl">
+          <CardHeader>
+            <CardTitle>종료된 캠페인</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Suspense fallback={<span>로딩중 ...</span>}>
+              <ExpiredCampaignListSortedByDeadline />
+            </Suspense>
+          </CardContent>
+        </Card>
+      </div>
+      <Card className="w-full max-w-3xl mx-auto py-8 mb-28">
         <CardHeader>
-          <CardTitle>종료된 캠페인</CardTitle>
+          <CardTitle>회원 탈퇴</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-2"></ul>
+          <Button onClick={deleteModal.toggleOpen} className="bg-red-600">
+            회원 탈퇴하기
+          </Button>
         </CardContent>
+        <DeleteAccountModal
+          isOpen={deleteModal.isOpen}
+          onClose={deleteModal.close}
+          onConfirm={handleDelete}
+        />
       </Card>
     </Layout>
   );

@@ -43,6 +43,7 @@ const SignUpPage: React.FC = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  autoFocus
                   required
                   value={formData.email}
                   onChange={handleChange}

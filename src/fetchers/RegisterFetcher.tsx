@@ -35,6 +35,8 @@ export default function RegisterFetcher() {
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="https://www.example.com/experience"
+              autoFocus
+              autoComplete="off"
               required
             />
           </div>
@@ -89,6 +91,8 @@ export default function RegisterFetcher() {
               onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="체험 제목을 입력하세요"
+              autoComplete="off"
+              autoFocus
               required
             />
           </div>
@@ -191,6 +195,7 @@ export default function RegisterFetcher() {
               value={formData.serviceDetails}
               onChange={handleChange}
               rows={20}
+              autoComplete="off"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="상품 제공 내역을 입력하세요"
             />
@@ -208,6 +213,7 @@ export default function RegisterFetcher() {
               name="location"
               value={formData.location}
               onChange={handleChange}
+              autoComplete="off"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="위치를 입력하세요"
             />
@@ -225,6 +231,7 @@ export default function RegisterFetcher() {
               name="detailedViewLink"
               value={formData.detailedViewLink}
               onChange={handleChange}
+              autoComplete="off"
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="자세히 보기 링크를 입력하세요"
             />

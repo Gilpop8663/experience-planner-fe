@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE } from "@/gql/query/campaign";
 import { Campaign } from "@/types/campaign";
 
@@ -11,9 +11,9 @@ interface Result {
 }
 
 export const useGetExpiredCampaignListSortedByDeadline = () => {
-  const { data, error, loading } = useQuery<Result>(
+  const { data, error } = useSuspenseQuery<Result>(
     GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
   );
 
-  return { data, error, loading };
+  return { data, error };
 };

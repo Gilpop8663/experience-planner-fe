@@ -1,4 +1,8 @@
 import { LOGIN } from "@/gql/mutation/user";
+import {
+  GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
+  GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
+} from "@/gql/query/campaign";
 import { ME } from "@/gql/query/user";
 import { client } from "@/main";
 import { useMutation } from "@apollo/client";
@@ -22,6 +26,10 @@ export const useLogin = () => {
   const handleLogin = async (input: Props) => {
     const result = await login({
       variables: { input },
+      refetchQueries: [
+        { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+        { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+      ],
     });
 
     return result;

@@ -7,7 +7,12 @@ interface ModalProps {
   onConfirm: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, onConfirm }) => {
+const DeleteCardModal: React.FC<ModalProps> = ({
+  title,
+  isOpen,
+  onClose,
+  onConfirm,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   React.useEffect(() => {
@@ -50,4 +55,4 @@ const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, onConfirm }) => {
   );
 };
 
-export default Modal;
+export default DeleteCardModal;

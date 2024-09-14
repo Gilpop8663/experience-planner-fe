@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useLogin } from "@/hooks/mutation/user/useLogin";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const { handleLogin, prefetchMyProfile } = useLogin();
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -25,11 +25,10 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    // 여기에서 실제 로그인 API를 호출합니다.
     try {
       const loginResult = await handleLogin({
         email: formData.email,
@@ -75,6 +74,7 @@ const LoginPage = () => {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  autoFocus
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={formData.email}
