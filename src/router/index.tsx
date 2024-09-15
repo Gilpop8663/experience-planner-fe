@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import ExperienceRegistration from "@/pages/MyInfoPage";
+import MyInfoPage from "@/pages/MyInfoPage";
 import MainPage from "@/pages/MainPage";
 import ExperienceDetailPage from "@/pages/DetailPage";
 import SignUpPage from "@/pages/SignUpPage";
@@ -66,7 +66,7 @@ const routerData: RouterBase[] = [
   },
   {
     path: ROUTES.INFO,
-    element: <ExperienceRegistration />,
+    element: <MyInfoPage />,
     withAuth: true,
   },
   {

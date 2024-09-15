@@ -148,22 +148,25 @@ export const useRegister = () => {
   useEffect(() => {
     const campaign = data.getCampaignDetail.data;
 
-    if (campaign) {
-      setActiveTab(1);
-      setFormData({
-        title: campaign.title ?? "",
-        platformName: campaign.platformName ?? "",
-        reviewDeadline: formatDate(campaign.reviewDeadline || ""),
-        reservationDate: convertToKST(campaign.reservationDate || ""),
-        serviceAmount: campaign.serviceAmount ?? 0,
-        serviceDetails: campaign.serviceDetails ?? "",
-        location: campaign.location ?? "",
-        detailedViewLink: campaign.detailedViewLink ?? "",
-        siteUrl: "",
-        extraAmount: campaign.extraAmount ?? 0,
-      });
+    if (!data.getCampaignDetail.ok) {
+      navigate(ROUTES.REGISTER);
+      return;
     }
-  }, [data]);
+
+    setActiveTab(1);
+    setFormData({
+      title: campaign.title ?? "",
+      platformName: campaign.platformName ?? "",
+      reviewDeadline: formatDate(campaign.reviewDeadline || ""),
+      reservationDate: convertToKST(campaign.reservationDate || ""),
+      serviceAmount: campaign.serviceAmount ?? 0,
+      serviceDetails: campaign.serviceDetails ?? "",
+      location: campaign.location ?? "",
+      detailedViewLink: campaign.detailedViewLink ?? "",
+      siteUrl: "",
+      extraAmount: campaign.extraAmount ?? 0,
+    });
+  }, [data, navigate]);
 
   return {
     activeTab,
