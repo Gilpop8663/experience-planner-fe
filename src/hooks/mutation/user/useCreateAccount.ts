@@ -1,4 +1,5 @@
 import { CREATE_ACCOUNT } from "@/gql/mutation/user";
+import { showPromiseToast } from "@/lib/toast";
 import { useMutation } from "@apollo/client";
 
 interface Result {
@@ -18,8 +19,14 @@ export const useCreateAccount = () => {
   const [createAccount, { data, error }] = useMutation<Result>(CREATE_ACCOUNT);
 
   const handleCreateAccount = async (input: Props) => {
-    const result = await createAccount({
+    const result = createAccount({
       variables: { input },
+    });
+
+    showPromiseToast(result, {
+      success: "계정 생성에 성공했습니다! 🎉",
+      error: "계정 생성에 실패했습니다 😢",
+      pending: "계정 생성중입니다 ⏳",
     });
 
     return result;

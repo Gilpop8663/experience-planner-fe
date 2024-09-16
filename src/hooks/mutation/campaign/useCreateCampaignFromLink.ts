@@ -4,6 +4,7 @@ import {
   GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
   GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
 } from "@/gql/query/campaign";
+import { showPromiseToast } from "@/lib/toast";
 
 interface Result {
   createCampaignFromLink: {
@@ -23,12 +24,18 @@ export const useCreateCampaignFromLink = () => {
     useMutation<Result>(CREATE_CAMPAIGN_FROM_LINK);
 
   const handleCreateCampaignFromLink = async (input: Props) => {
-    const result = await createCampaignFromLink({
+    const result = createCampaignFromLink({
       variables: { input },
       refetchQueries: [
         { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
         { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
       ],
+    });
+
+    showPromiseToast(result, {
+      success: "체험단 생성에 성공했습니다! 🎉",
+      error: "체험단 생성에 실패했습니다 😢",
+      pending: "체험단 생성중입니다 ⏳",
     });
 
     return result;

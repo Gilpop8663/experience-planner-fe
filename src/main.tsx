@@ -1,4 +1,5 @@
 import "./input.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   ApolloClient,
@@ -16,6 +17,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router/index.tsx";
 import { ACCESS_TOKEN } from "./constants/localStorage.ts";
 import { onError } from "@apollo/client/link/error";
+import PortalToastContainer from "./components/Toast/PortalToastContainer.tsx";
 
 interface RefreshTokenResult {
   data: {
@@ -123,6 +125,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <ApolloProvider client={client}>
     <React.StrictMode>
       <RouterProvider router={router} />
+      <PortalToastContainer />
     </React.StrictMode>
   </ApolloProvider>,
 );

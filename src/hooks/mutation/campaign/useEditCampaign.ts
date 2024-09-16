@@ -5,6 +5,7 @@ import {
   GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
   GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
 } from "@/gql/query/campaign";
+import { showPromiseToast } from "@/lib/toast";
 
 interface Result {
   editCampaign: {
@@ -39,7 +40,7 @@ export const useEditCampaign = () => {
     useMutation<Result>(EDIT_CAMPAIGN);
 
   const handleEditCampaign = async (input: Props) => {
-    const result = await editCampaign({
+    const result = editCampaign({
       variables: { input },
       refetchQueries: [
         { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
@@ -72,6 +73,12 @@ export const useEditCampaign = () => {
           }),
         );
       },
+    });
+
+    showPromiseToast(result, {
+      success: "체험단 수정에 성공했습니다! 🎉",
+      error: "체험단 수정에 실패했습니다 😢",
+      pending: "체험단 수정중입니다 ⏳",
     });
 
     return result;
