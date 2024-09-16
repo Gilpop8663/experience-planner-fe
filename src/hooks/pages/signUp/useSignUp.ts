@@ -2,7 +2,6 @@ import { useSendVerifyEmail } from "@/hooks/mutation/verification/useSendVerifyE
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useVerificationCode } from "./useVerificationCode";
 import { useCheckEmail } from "@/hooks/mutation/user/useCheckEmail";
-import { useCheckNickname } from "@/hooks/mutation/user/useCheckNickname";
 import { useCreateAccount } from "@/hooks/mutation/user/useCreateAccount";
 import { useLogin } from "@/hooks/mutation/user/useLogin";
 import { useNavigate } from "react-router-dom";
@@ -12,14 +11,12 @@ interface FormData {
   email: string;
   password: string;
   confirmPassword: string;
-  nickname: string;
 }
 
 interface FormErrors {
   email: string;
   password: string;
   confirmPassword: string;
-  nickname: string;
 }
 
 // 커스텀 훅 정의
@@ -30,20 +27,17 @@ export const useSignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    nickname: "",
   });
 
   const { handleSendVerifyEmail } = useSendVerifyEmail();
   const verificationCode = useVerificationCode(formData.email);
   const { handleCheckEmail } = useCheckEmail();
-  const { handleCheckNickname } = useCheckNickname();
   const [showPassword, setShowPassword] = useState(false);
   const [showVerificationField, setShowVerificationField] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({
     email: "",
     password: "",
     confirmPassword: "",
-    nickname: "",
   });
   // 이메일 인증 성공 여부를 관리하는 상태 변수
   const [isVerificationSuccess, setIsVerificationSuccess] = useState(false);
@@ -62,24 +56,6 @@ export const useSignUp = () => {
       setVerificationError(
         result.data?.verifyEmail?.error || "인증번호가 올바르지 않습니다.",
       ); // 오류 메시지 설정
-    }
-  };
-
-  const checkNickname = async () => {
-    const result = await handleCheckNickname({ nickname: formData.nickname });
-
-    if (result.data?.checkNickname.ok) {
-      setIsCheckNicknameSuccess(true);
-      setErrors((prev) => ({
-        ...prev,
-        nickname: "",
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        nickname:
-          result.data?.checkNickname.error || "이미 사용 중인 닉네임입니다.",
-      }));
     }
   };
 
@@ -107,7 +83,6 @@ export const useSignUp = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      nickname: "",
     };
 
     if (!formData.email) newErrors.email = "이메일을 입력해주세요.";
@@ -121,11 +96,7 @@ export const useSignUp = () => {
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
 
-    if (!formData.nickname) newErrors.nickname = "닉네임을 입력해주세요.";
-
     if (!isVerificationSuccess) newErrors.email = "이메일 인증을 완료해주세요.";
-    if (!isCheckNicknameSuccess)
-      newErrors.nickname = "닉네임 중복 확인을 완료해주세요.";
 
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === "");
@@ -136,7 +107,6 @@ export const useSignUp = () => {
     if (validateForm()) {
       const result = await handleCreateAccount({
         email: formData.email,
-        nickname: formData.nickname,
         password: formData.password,
       });
 
@@ -230,7 +200,6 @@ export const useSignUp = () => {
     isVerificationSuccess,
     verificationError,
     handleVerificationCode,
-    checkNickname,
     isCheckNicknameSuccess,
     createAccountError,
   };

@@ -143,12 +143,12 @@ export default function ExperienceRegistrationFetcher() {
                       <Eye className="h-5 w-5 text-gray-400" />
                     )}
                   </button>
-                  {errors.confirmPassword && (
-                    <p className="mt-2 text-sm text-red-600">
-                      {errors.confirmPassword}
-                    </p>
-                  )}
                 </div>
+                {errors.confirmPassword && (
+                  <p className="mt-2 text-sm text-red-600">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
               <Button type="submit">저장하기</Button>
             </form>

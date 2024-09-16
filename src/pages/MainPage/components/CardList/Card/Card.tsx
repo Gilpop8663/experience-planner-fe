@@ -49,13 +49,13 @@ export default function Card(campaign: Campaign) {
               <EllipsisVertical />
             </div>
             {isModalOpen && (
-              <div className="bg-white border absolute w-32 justify-center rounded-sm text-xs right-6 -top-1">
+              <div className="bg-white border absolute w-16 justify-center rounded-sm text-sm right-6 -top-1">
                 <Link to={`${ROUTES.REGISTER}/edit/${id}`}>
                   <button
                     className="text-center w-full border-b py-0.5 hover:bg-black/5"
                     type="button"
                   >
-                    체험 정보 수정
+                    수정
                   </button>
                 </Link>
                 <button
@@ -63,7 +63,7 @@ export default function Card(campaign: Campaign) {
                   className="text-center w-full py-0.5 hover:bg-black/5"
                   type="button"
                 >
-                  체험 정보 삭제
+                  삭제
                 </button>
               </div>
             )}
@@ -155,7 +155,7 @@ export default function Card(campaign: Campaign) {
               type="button"
               className="w-full p-3 font-bold text-white bg-orange-600 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
             >
-              초기화
+              날짜 초기화
             </button>
             <div className="mt-4 text-red-500">{error}</div>
           </form>

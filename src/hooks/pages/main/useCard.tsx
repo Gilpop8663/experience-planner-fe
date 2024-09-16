@@ -92,6 +92,12 @@ export const useCard = (campaign: Campaign) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    setFormData({
+      reservationDate: convertToKST(reservationDate || ""),
+    });
+  }, [reservationDate]);
+
   return {
     isModalOpen,
     handleActionClick,

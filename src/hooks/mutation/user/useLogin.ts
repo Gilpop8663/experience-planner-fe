@@ -4,7 +4,7 @@ import {
   GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
 } from "@/gql/query/campaign";
 import { ME } from "@/gql/query/user";
-import { showPromiseToast } from "@/lib/toast";
+import { showToast } from "@/lib/toast";
 import { client } from "@/main";
 import { useMutation } from "@apollo/client";
 
@@ -25,19 +25,18 @@ export const useLogin = () => {
   const [login, { data, error }] = useMutation<Result>(LOGIN);
 
   const handleLogin = async (input: Props) => {
-    const result = login({
+    const result = await login({
       variables: { input },
       refetchQueries: [
         { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
         { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+        { query: ME },
       ],
     });
 
-    showPromiseToast(result, {
-      success: "로그인에 성공했습니다! 🎉",
-      error: "로그인에 실패했습니다 😢",
-      pending: "로그인 중입니다 ⏳",
-    });
+    if (result.data?.login.ok) {
+      showToast("로그인에 성공했습니다! 🎉");
+    }
 
     return result;
   };

@@ -1,8 +1,6 @@
 import { DELETE_ACCOUNT } from "@/gql/mutation/user";
 import { useMutation } from "@apollo/client";
 import { ACCESS_TOKEN } from "@/constants/localStorage";
-import { ROUTES } from "@/router/routes";
-import { useNavigate } from "react-router-dom";
 import { showPromiseToast } from "@/lib/toast";
 
 interface Result {
@@ -17,7 +15,6 @@ interface Props {
 }
 
 export const useDeleteAccount = () => {
-  const navigate = useNavigate();
   const [deleteAccount, { data, error }] = useMutation<Result>(DELETE_ACCOUNT);
 
   const handleDeleteAccount = async (input: Props) => {
@@ -26,8 +23,6 @@ export const useDeleteAccount = () => {
     });
 
     localStorage.removeItem(ACCESS_TOKEN);
-
-    navigate(ROUTES.LANDING);
 
     showPromiseToast(result, {
       success: "계정 삭제에 성공했습니다! 🎉",

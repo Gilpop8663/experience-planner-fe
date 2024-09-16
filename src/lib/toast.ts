@@ -27,7 +27,7 @@ export const showPromiseToast = (
   data: Promise<unknown>,
   { error, pending, success }: ShowPromiseToast,
 ) => {
-  toast.promise(
+  return toast.promise(
     data,
     {
       pending,

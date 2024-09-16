@@ -12,7 +12,6 @@ interface Result {
 interface Props {
   email: string;
   password: string;
-  nickname: string;
 }
 
 export const useCreateAccount = () => {

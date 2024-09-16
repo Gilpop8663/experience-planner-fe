@@ -19,8 +19,6 @@ const SignUpPage: React.FC = () => {
     handleVerificationCode,
     isVerificationSuccess,
     verificationError,
-    checkNickname,
-    isCheckNicknameSuccess,
     createAccountError,
   } = useSignUp();
 
@@ -154,40 +152,6 @@ const SignUpPage: React.FC = () => {
                 )}
               </div>
             </div>
-
-            <div>
-              <Label htmlFor="nickname">닉네임</Label>
-              <div className="flex justify-between gap-4">
-                <Input
-                  id="nickname"
-                  name="nickname"
-                  type="text"
-                  autoComplete="nickname"
-                  required
-                  minLength={2}
-                  maxLength={20}
-                  value={formData.nickname}
-                  onChange={handleChange}
-                />
-                <Button
-                  className="text-xs w-auto"
-                  type="button"
-                  onClick={checkNickname} // 닉네임 중복 확인 버튼
-                  disabled={isCheckNicknameSuccess}
-                >
-                  중복 확인
-                </Button>
-              </div>
-              {isCheckNicknameSuccess && (
-                <p className="mt-2 text-sm text-green-600">
-                  사용 가능한 닉네임입니다.
-                </p>
-              )}
-              {errors.nickname && (
-                <p className="mt-2 text-sm text-red-600">{errors.nickname}</p>
-              )}
-            </div>
-
             <div className="">
               <Button type="submit">가입하기</Button>
               {createAccountError && (

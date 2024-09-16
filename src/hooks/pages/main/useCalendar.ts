@@ -3,6 +3,7 @@ import { useGetCalendarCampaignList } from "@/hooks/query/campaign/useGetCalenda
 import { useGetSponsorshipCostAndConsumption } from "@/hooks/query/campaign/useGetSponsorshipCostAndConsumption";
 import { Campaign } from "@/types/campaign";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
 import { useState } from "react";
 import { dayjsLocalizer } from "react-big-calendar";
 

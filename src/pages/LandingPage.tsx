@@ -5,6 +5,8 @@ import heroImage from "@/assets/hero.jpg";
 import step1Image from "@/assets/step1.jpg";
 import step2Image from "@/assets/step2.jpg";
 import step3Image from "@/assets/step3.jpg";
+import { Link } from "react-router-dom";
+import { ROUTES } from "@/router/routes";
 
 // 후기 데이터
 const testimonials = [
@@ -40,9 +42,9 @@ export default function LandingPage() {
             소중한 시간을 더욱 알차게 활용하세요.
           </p>
           <div className="flex flex-col space-y-2">
-            <a href="/register">
-              <Button className="w-full lg:w-1/2">체험 일정 관리하기</Button>
-            </a>
+            <Link to={ROUTES.SIGN_UP}>
+              <Button className="w-full lg:w-1/2">회원가입 하기</Button>
+            </Link>
             <p className="text-sm text-gray-500 italic">
               전국의 다양한 체험단이 이미 함께하고 있습니다.
             </p>
@@ -129,7 +131,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Featured Experiences Section */}
+      {/* Featured Experiences Section
       <div className="w-full max-w-6xl mt-16 mb-16 p-8 rounded-lg space-y-8">
         <h2 className="text-3xl font-bold text-center mb-8">추천 체험 일정</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -148,9 +150,9 @@ export default function LandingPage() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
-      {/* Pricing Section */}
+      {/* Pricing Section
       <div className="w-full max-w-6xl mt-16 p-8 bg-gray-100 rounded-lg space-y-8">
         <h2 className="text-3xl font-bold text-center mb-8">구독 요금제</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -194,7 +196,7 @@ export default function LandingPage() {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Testimonials Section */}
       <div className="w-full max-w-6xl mt-16 mb-16 p-8 rounded-lg space-y-8">
