@@ -4,6 +4,7 @@ import useOpen from "@/hooks/useOpen";
 import { useEditProfile } from "@/hooks/mutation/user/useEditProfile";
 import { useCheckPassword } from "@/hooks/mutation/user/useCheckPassword";
 import { useDeleteAccount } from "@/hooks/mutation/user/useDeleteAccount";
+import { useGetTotalSponsorshipCostAndConsumption } from "@/hooks/query/campaign/useGetTotalSponsorshipCostAndConsumption";
 
 interface FormData {
   prevPassword: string;
@@ -41,6 +42,7 @@ export const useMyInfo = () => {
   const { handleEditProfile } = useEditProfile();
   const { handleCheckPassword } = useCheckPassword();
   const { handleDeleteAccount } = useDeleteAccount();
+  const { data } = useGetTotalSponsorshipCostAndConsumption();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -152,5 +154,6 @@ export const useMyInfo = () => {
     handleShowPassword,
     deleteModal,
     handleDelete,
+    data,
   };
 };

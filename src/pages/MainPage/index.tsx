@@ -50,7 +50,7 @@ export default function MainPage() {
             </div>
           )}
         </div>
-        <div className="flex justify-center pb-[77px]">
+        <div className="flex justify-center pb-[77px] bg-gray-100">
           <RegisterButton />
         </div>
       </div>

@@ -20,6 +20,7 @@ export default function ExperienceRegistrationFetcher() {
     handleShowPassword,
     handleSubmit,
     showPassword,
+    data,
   } = useMyInfo();
 
   return (
@@ -156,6 +157,34 @@ export default function ExperienceRegistrationFetcher() {
       </Card>
       <div className="flex justify-center p-8">
         <Card className="w-full max-w-screen-2xl">
+          <div className="flex justify-evenly">
+            <div>
+              <CardHeader>
+                <CardTitle>총 협찬 비용</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <span className="text-lg">
+                  {data.getTotalSponsorshipCostAndConsumption.totalSponsorshipCost.toLocaleString(
+                    "ko-KR",
+                  )}
+                  원
+                </span>
+              </CardContent>
+            </div>
+            <div>
+              <CardHeader>
+                <CardTitle>총 소비한 비용</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <span className="text-lg">
+                  {data.getTotalSponsorshipCostAndConsumption.totalConsumptionCost.toLocaleString(
+                    "ko-KR",
+                  )}
+                  원
+                </span>
+              </CardContent>
+            </div>
+          </div>
           <CardHeader>
             <CardTitle>종료된 캠페인</CardTitle>
           </CardHeader>

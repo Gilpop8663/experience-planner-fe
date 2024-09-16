@@ -1,89 +1,53 @@
 import "@/styles/calendar.css"; // 커스텀 스타일 적용
 
-import { useGetCalendarCampaignList } from "@/hooks/query/campaign/useGetCalendarCampaignList";
 import {
   Calendar,
   DateHeaderProps,
-  dayjsLocalizer,
   Event,
   HeaderProps,
 } from "react-big-calendar";
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
-import { useState } from "react";
-import { Campaign } from "@/types/campaign";
-import { holidayEvents } from "@/constants/holiday";
-
-dayjs.locale("ko");
-dayjs().format("YYYY-MM-DD ddd HH:mm:ss");
-
-const localizer = dayjsLocalizer(dayjs);
-const now = new Date();
-
-type CampaignType = "deadline" | "reservation" | "holiday";
-
-const formattedCampaign = (campaignList: Campaign[], kind: CampaignType) => {
-  if (kind === "reservation") {
-    return campaignList.map((item) => {
-      const startDate = item.reservationDate
-        ? new Date(item.reservationDate)
-        : new Date();
-      const endDate = new Date(startDate); // startDate를 복사해서 endDate 생성
-      endDate.setHours(endDate.getHours() + 2); // endDate에 2시간 추가
-
-      return {
-        id: item.id,
-        title: item.title,
-        start: startDate,
-        end: endDate,
-        kind,
-      };
-    });
-  }
-
-  return campaignList.map((item) => {
-    const startDate = new Date(item.reviewDeadline);
-    startDate.setHours(22, 0, 0, 0); // 22시로 설정
-
-    const endDate = new Date(item.reviewDeadline);
-    endDate.setHours(23, 59, 0, 0); // 24시로 설정 (다음 날 0시)
-
-    return {
-      id: item.id,
-      title: item.title,
-      start: startDate,
-      end: endDate,
-      kind,
-    };
-  });
-};
+import { CampaignType, useCalendar } from "@/hooks/pages/main/useCalendar";
 
 export default function CampaignListByCalendarFetcher() {
-  const [date, setDate] = useState(now);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const { data } = useGetCalendarCampaignList({ year, month });
-
-  const deadlineEvents = formattedCampaign(
-    data.getCalendarCampaignList.data,
-    "deadline",
-  );
-
-  const reservationEvents = formattedCampaign(
-    data.getCalendarCampaignList.data.filter(
-      (item) => item.reservationDate !== null,
-    ),
-    "reservation",
-  );
-
-  const myEvents = [...holidayEvents, ...deadlineEvents, ...reservationEvents];
+  const {
+    costData,
+    date,
+    month,
+    year,
+    handleNavigateDate,
+    localizer,
+    myEvents,
+    handleDayRangeHeaderFormat,
+  } = useCalendar();
 
   return (
     <div>
+      <div className="py-2 text-sm">
+        <div className="flex gap-2">
+          <span>
+            {year}년 {month}월 협찬 비용:
+          </span>
+          <span>
+            {costData.getSponsorshipCostAndConsumption.sponsorshipCost.toLocaleString(
+              "ko-KR",
+            )}
+            원
+          </span>
+        </div>
+        <div className="flex gap-2 my-2">
+          <span>
+            {year}년 {month}월 소비한 비용:
+          </span>
+          <span>
+            {costData.getSponsorshipCostAndConsumption.consumptionCost.toLocaleString(
+              "ko-KR",
+            )}
+            원
+          </span>
+        </div>
+      </div>
       <Calendar
-        onNavigate={(date) => {
-          setDate(new Date(date));
-        }}
+        onNavigate={handleNavigateDate}
         date={date}
         localizer={localizer}
         events={myEvents}
@@ -111,10 +75,7 @@ export default function CampaignListByCalendarFetcher() {
         formats={{
           monthHeaderFormat: "YYYY년 MM월 방문 일정",
           dayHeaderFormat: "YYYY년 MM월 DD일",
-          dayRangeHeaderFormat: ({ start, end }) =>
-            dayjs(start).locale("ko").format("YYYY-MM-DD") +
-            " ~ " +
-            dayjs(end).locale("ko").format("YYYY-MM-DD"),
+          dayRangeHeaderFormat: handleDayRangeHeaderFormat,
         }}
         components={{
           month: {

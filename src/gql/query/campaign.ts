@@ -102,3 +102,26 @@ export const GET_CAMPAIGN_DETAIL = gql`
     }
   }
 `;
+
+export const GET_SPONSORSHIP_COST_AND_CONSUMPTION = gql`
+  query ($input: GetSponsorshipCostAndConsumptionInput!) {
+    getSponsorshipCostAndConsumption(input: $input) {
+      ok
+      error
+      sponsorshipCost
+      consumptionCost
+    }
+  }
+`;
+
+// 총 협찬 비용과 소비한 금액 가져오기
+export const GET_TOTAL_SPONSORSHIP_COST_AND_CONSUMPTION = gql`
+  query {
+    getTotalSponsorshipCostAndConsumption {
+      ok
+      error
+      totalSponsorshipCost
+      totalConsumptionCost
+    }
+  }
+`;
