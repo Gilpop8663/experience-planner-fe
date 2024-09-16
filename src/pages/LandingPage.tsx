@@ -215,25 +215,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-const featuredExperiences = [
-  {
-    id: 1,
-    title: "서울 한강 카약 체험",
-    description: "도심 속에서 즐기는 특별한 수상 레저 체험",
-    price: "무료",
-  },
-  {
-    id: 2,
-    title: "제주 흑돼지 BBQ 클래스",
-    description: "제주 현지 셰프와 함께하는 흑돼지 바비큐 요리 클래스",
-    price: "30,000원",
-  },
-  {
-    id: 3,
-    title: "부산 요트 투어",
-    description: "해운대 앞바다를 누비는 럭셔리 요트 투어",
-    price: "50,000원",
-  },
-  // 더 많은 체험을 추가할 수 있습니다.
-];

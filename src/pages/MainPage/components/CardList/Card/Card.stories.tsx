@@ -27,5 +27,13 @@ export const Primary: Story = {
     reservationDate: "2024-08-24 오후 2시 30분",
     detailedViewLink: "",
     location: "서울 송파구 충민로 66 (가든파이브라이프)",
+    isReserved: true,
+    user: {
+      id: 1,
+      email: "",
+      nickname: "",
+      point: 0,
+    },
+    id: 1,
   },
 };

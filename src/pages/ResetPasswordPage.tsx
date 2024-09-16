@@ -1,5 +1,5 @@
 import { useResetPassword } from "@/hooks/mutation/user/useResetPassword";
-import React, { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ResetPasswordPage = () => {
@@ -11,7 +11,7 @@ const ResetPasswordPage = () => {
   const [success, setSuccess] = useState("");
   const { handleResetPassword } = useResetPassword();
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "password") {
       setPassword(value);
@@ -20,7 +20,7 @@ const ResetPasswordPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     setSuccess("");
