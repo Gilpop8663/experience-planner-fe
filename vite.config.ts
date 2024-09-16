@@ -7,6 +7,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    base: "/experience-planner-fe/",
     define: {
       "process.env.VITE_DB_URL": JSON.stringify(env.VITE_DB_URL),
     },
