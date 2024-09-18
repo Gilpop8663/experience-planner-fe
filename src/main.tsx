@@ -1,5 +1,7 @@
 import "./input.css";
+import "@/styles/embla.css";
 import "react-toastify/dist/ReactToastify.css";
+import "@/styles/calendar.css"; // 커스텀 스타일 적용
 
 import {
   ApolloClient,
