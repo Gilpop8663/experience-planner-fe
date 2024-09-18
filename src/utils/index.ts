@@ -82,3 +82,13 @@ export const convertToKST = (utcDate: string | null) => {
   date.setHours(date.getHours() + 9);
   return date.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:mm' 형식으로 반환
 };
+
+export const getKoreanWeekday = (dateString: string | Date) => {
+  const date = new Date(dateString);
+
+  if (isNaN(date.getTime())) {
+    return ""; // 유효하지 않은 날짜일 경우 빈 문자열 반환
+  }
+
+  return date.toLocaleDateString("ko-KR", { weekday: "long" });
+};

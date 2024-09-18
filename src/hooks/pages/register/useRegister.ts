@@ -1,10 +1,11 @@
+import { AMOUNT } from "@/constants";
 import { useCreateCampaignDirectly } from "@/hooks/mutation/campaign/useCreateCampaignDirectly";
 import { useCreateCampaignFromLink } from "@/hooks/mutation/campaign/useCreateCampaignFromLink";
 import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import { useGetCampaignDetail } from "@/hooks/query/campaign/useGetCampaignDetail";
 import { useMyProfile } from "@/hooks/query/user/useMyProfile";
 import { ROUTES } from "@/router/routes";
-import { convertToKST, formatDate } from "@/utils";
+import { convertToKST, formatDate, getKoreanWeekday } from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -36,13 +37,47 @@ export const useRegister = () => {
     useCreateCampaignDirectly();
   const { handleEditCampaign, loading: editLoading } = useEditCampaign();
 
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const element = event.currentTarget;
+    const regex = /[^0-9]/g; // 숫자가 아닌 모든 문자
+
+    // 숫자가 아닌 문자를 제거
+    element.value = element.value.replace(regex, "");
+  };
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
 
+    if (name === "serviceAmount" || name === "extraAmount") {
+      const check = /[a-z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
+      const inputValue = event.nativeEvent as InputEvent;
+
+      if (inputValue.data && check.test(inputValue.data)) {
+        return null;
+      }
+    }
+
     const getValue = () => {
+      event.currentTarget.setCustomValidity("");
       if (name === "serviceAmount" || name === "extraAmount") {
+        if (Number(value) < AMOUNT.MIN) {
+          event.currentTarget.setCustomValidity(
+            `${AMOUNT.MIN}원 이상만 입력 가능합니다.`,
+          );
+          event.currentTarget.reportValidity();
+          return;
+        }
+
+        if (Number(value) > AMOUNT.MAX) {
+          event.currentTarget.setCustomValidity(
+            `${AMOUNT.MAX.toLocaleString("ko")}원 이하만 입력 가능합니다.`,
+          );
+          event.currentTarget.reportValidity();
+          return;
+        }
+
         return Number(value);
       }
 
@@ -172,11 +207,18 @@ export const useRegister = () => {
     activeTab,
     setActiveTab,
     handleSiteUrlSubmit,
-    formData,
+    formData: {
+      ...formData,
+      serviceAmount: formData.serviceAmount === 0 ? "" : formData.serviceAmount,
+      extraAmount: formData.extraAmount === 0 ? "" : formData.extraAmount,
+    },
     handleChange,
     error,
     handleSubmit,
     siteUrlLoading: loading,
     directLoading: directLoading || editLoading,
+    handleKeyUp,
+    reviewDeadlineWeekday: getKoreanWeekday(formData.reviewDeadline),
+    reservationDateWeekday: getKoreanWeekday(formData.reservationDate),
   };
 };

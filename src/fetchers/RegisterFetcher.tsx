@@ -14,6 +14,9 @@ export default function RegisterFetcher() {
     handleSubmit,
     directLoading,
     siteUrlLoading,
+    handleKeyUp,
+    reservationDateWeekday,
+    reviewDeadlineWeekday,
   } = useRegister();
 
   const tabs = ["링크로 추가", "직접 입력"];
@@ -152,6 +155,12 @@ export default function RegisterFetcher() {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
+            {reviewDeadlineWeekday && (
+              <p className="mt-2 text-gray-600 font-semibold space-x-1">
+                <span>선택하신 날짜의 요일:</span>
+                <span className="text-blue-600">{reviewDeadlineWeekday}</span>
+              </p>
+            )}
           </div>
           {/* 추가 정보 */}
           <div className="mb-4">
@@ -165,8 +174,12 @@ export default function RegisterFetcher() {
               type="number"
               id="serviceAmount"
               name="serviceAmount"
-              value={formData.serviceAmount}
+              inputMode="numeric"
               onChange={handleChange}
+              onKeyUp={handleKeyUp}
+              value={formData.serviceAmount}
+              min={0}
+              max={1000000000}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="협찬비를 입력하세요"
             />
@@ -182,8 +195,12 @@ export default function RegisterFetcher() {
               type="number"
               id="extraAmount"
               name="extraAmount"
-              value={formData.extraAmount}
+              inputMode="numeric"
               onChange={handleChange}
+              onKeyUp={handleKeyUp}
+              value={formData.extraAmount}
+              min={0}
+              max={1000000000}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="추가로 사용한 비용을 입력하세요"
             />
@@ -204,6 +221,12 @@ export default function RegisterFetcher() {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="방문 날짜를 입력하세요"
             />
+            {reservationDateWeekday && (
+              <p className="mt-2 text-gray-600 font-semibold space-x-1">
+                <span>선택하신 날짜의 요일:</span>
+                <span className="text-blue-600">{reservationDateWeekday}</span>
+              </p>
+            )}
           </div>
           <div className="mb-4">
             <label
