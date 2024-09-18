@@ -53,11 +53,14 @@ export const useSignUp = () => {
 
     if (result.data?.verifyEmail?.ok) {
       setIsVerificationSuccess(true); // 인증 성공
-    } else {
-      setVerificationError(
-        result.data?.verifyEmail?.error || "인증번호가 올바르지 않습니다.",
-      ); // 오류 메시지 설정
+      setVerificationError("");
+
+      return;
     }
+
+    setVerificationError(
+      result.data?.verifyEmail?.error || "인증번호가 올바르지 않습니다.",
+    ); // 오류 메시지 설정
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,6 +133,7 @@ export const useSignUp = () => {
 
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
         await prefetchMyProfile();
+        setCreateAccountError("");
         navigate(ROUTES.HOME);
         return;
       }
