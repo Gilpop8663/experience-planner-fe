@@ -30,11 +30,21 @@ export const useDeleteCampaign = () => {
       ],
     });
 
-    showPromiseToast(result, {
-      success: "체험단 삭제에 성공했습니다! 🎉",
-      error: "체험단 삭제에 실패했습니다 😢",
-      pending: "체험단 삭제중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.deleteCampaign.ok) {
+          throw new Error(
+            res.data?.deleteCampaign.error || "체험단 삭제에 실패했습니다 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "체험단 삭제에 성공했습니다! 🎉",
+        error: "체험단 삭제에 실패했습니다 😢",
+        pending: "체험단 삭제중입니다 ⏳",
+      },
+    );
 
     return result;
   };

@@ -30,11 +30,21 @@ export const useDeleteAccount = () => {
       },
     });
 
-    showPromiseToast(result, {
-      success: "계정 삭제에 성공했습니다! 🎉",
-      error: "계정 삭제에 실패했습니다 😢",
-      pending: "계정 삭제중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.deleteAccount.ok) {
+          throw new Error(
+            res.data?.deleteAccount.error || "계정 삭제에 실패했습니다 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "계정 삭제에 성공했습니다! 🎉",
+        error: "계정 삭제에 실패했습니다 😢",
+        pending: "계정 삭제중입니다 ⏳",
+      },
+    );
 
     return result;
   };

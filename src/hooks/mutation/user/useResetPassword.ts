@@ -22,11 +22,21 @@ export const useResetPassword = () => {
       variables: { input },
     });
 
-    showPromiseToast(result, {
-      success: "비밀번호 수정에 성공했습니다! 🎉",
-      error: "비밀번호 수정에 실패했습니다 😢",
-      pending: "비밀번호 수정중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.resetPassword.ok) {
+          throw new Error(
+            res.data?.resetPassword.error || "비밀번호 수정에 실패했습니다 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "비밀번호 수정에 성공했습니다! 🎉",
+        error: "비밀번호 수정에 실패했습니다 😢",
+        pending: "비밀번호 수정중입니다 ⏳",
+      },
+    );
 
     return result;
   };

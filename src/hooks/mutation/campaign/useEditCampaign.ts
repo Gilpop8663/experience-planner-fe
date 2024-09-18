@@ -39,11 +39,21 @@ export const useEditCampaign = () => {
       ],
     });
 
-    showPromiseToast(result, {
-      success: "체험단 수정에 성공했습니다! 🎉",
-      error: "체험단 수정에 실패했습니다 😢",
-      pending: "체험단 수정중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.editCampaign.ok) {
+          throw new Error(
+            res.data?.editCampaign.error || "체험단 수정에 실패했습니다 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "체험단 수정에 성공했습니다! 🎉",
+        error: "체험단 수정에 실패했습니다 😢",
+        pending: "체험단 수정중입니다 ⏳",
+      },
+    );
 
     return result;
   };

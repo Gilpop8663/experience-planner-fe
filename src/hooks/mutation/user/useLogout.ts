@@ -27,11 +27,21 @@ export const useLogout = () => {
       },
     });
 
-    showPromiseToast(result, {
-      success: "로그아웃에 성공했습니다! 🎉",
-      error: "로그아웃에 실패했습니다 😢",
-      pending: "로그아웃 중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.logout.ok) {
+          throw new Error(
+            res.data?.logout.error || "로그아웃에 실패했습니다! 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "로그아웃에 성공했습니다! 🎉",
+        error: "로그아웃에 실패했습니다 😢",
+        pending: "로그아웃 중입니다 ⏳",
+      },
+    );
 
     return result;
   };

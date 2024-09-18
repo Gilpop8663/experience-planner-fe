@@ -32,11 +32,22 @@ export const useCreateCampaignFromLink = () => {
       ],
     });
 
-    showPromiseToast(result, {
-      success: "체험단 생성에 성공했습니다! 🎉",
-      error: "체험단 생성에 실패했습니다 😢",
-      pending: "체험단 생성중입니다 ⏳",
-    });
+    showPromiseToast(
+      result.then((res) => {
+        if (!res.data?.createCampaignFromLink.ok) {
+          throw new Error(
+            res.data?.createCampaignFromLink.error ||
+              "체험단 생성에 실패했습니다 😢",
+          );
+        }
+        return res;
+      }),
+      {
+        success: "체험단 생성에 성공했습니다! 🎉",
+        error: "체험단 생성에 실패했습니다 😢",
+        pending: "체험단 생성중입니다 ⏳",
+      },
+    );
 
     return result;
   };
