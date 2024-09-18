@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Tabs from "../Tabs/Tabs";
 import TabContent from "../Tabs/TabContent";
 import Skeleton from "./Skeleton";

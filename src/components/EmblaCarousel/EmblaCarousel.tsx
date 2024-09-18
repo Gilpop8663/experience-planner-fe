@@ -1,14 +1,12 @@
 import React from "react";
 import { EmblaOptionsType } from "embla-carousel";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
-import {
-  PrevButton,
-  NextButton,
-  usePrevNextButtons,
-} from "./EmblaCarouselArrowButtons";
+import { DotButton } from "./EmblaCarouselDotButton";
+import { PrevButton, NextButton } from "./EmblaCarouselArrowButtons";
 import useEmblaCarousel from "embla-carousel-react";
 import { Campaign } from "@/types/campaign";
 import Card from "@/pages/MainPage/components/CardList/Card/Card";
+import { useDotButton } from "@/hooks/pages/main/useDotButton";
+import { usePrevNextButtons } from "@/hooks/pages/main/usePrevNextButtons";
 
 type PropType = {
   slides: Campaign[];
