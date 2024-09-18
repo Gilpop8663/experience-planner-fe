@@ -1,5 +1,5 @@
-import ErrorBoundary from "@/components/ErrorBoundary";
 import Layout from "@/components/Layout";
+import RegisterLoading from "@/components/suspense/RegisterLoading";
 import RegisterFetcher from "@/fetchers/RegisterFetcher";
 import { Suspense } from "react";
 
@@ -11,11 +11,9 @@ export default function RegisterPage() {
           <h2 className="mb-6 text-2xl font-bold text-center text-gray-800">
             체험 등록
           </h2>
-          <ErrorBoundary fallback={<span>에러</span>}>
-            <Suspense fallback={<span>로딩중...</span>}>
-              <RegisterFetcher />
-            </Suspense>
-          </ErrorBoundary>
+          <Suspense fallback={<RegisterLoading />}>
+            <RegisterFetcher />
+          </Suspense>
         </div>
       </div>
     </Layout>

@@ -19,10 +19,11 @@ interface Result {
 interface Props {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export const useLogin = () => {
-  const [login, { data, error }] = useMutation<Result>(LOGIN);
+  const [login, { data, error, loading }] = useMutation<Result>(LOGIN);
 
   const handleLogin = async (input: Props) => {
     const result = await login({
@@ -36,6 +37,10 @@ export const useLogin = () => {
 
     if (result.data?.login.ok) {
       showToast("로그인에 성공했습니다! 🎉");
+    }
+
+    if (!result.data?.login.ok) {
+      showToast("로그인에 실패했습니다! 😢", "error");
     }
 
     return result;
@@ -54,5 +59,5 @@ export const useLogin = () => {
     }
   };
 
-  return { handleLogin, data, error, prefetchMyProfile };
+  return { handleLogin, data, error, loading, prefetchMyProfile };
 };

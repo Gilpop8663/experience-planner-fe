@@ -2,8 +2,9 @@ import { Suspense, useState } from "react";
 import Layout from "@/components/Layout";
 import CampaignListSortedByDeadlineFetcher from "@/fetchers/CampaignListSortedByDeadlineFetcher";
 import RegisterButton from "./components/RegisterButton/RegisterButton";
-import ErrorBoundary from "@/components/ErrorBoundary";
 import CampaignListByCalendarFetcher from "@/fetchers/CampaignListByCalendarFetcher";
+import CardListLoading from "@/components/suspense/CardListLoading";
+import CampaignListByCalendarLoading from "@/components/suspense/CampaignListByCalendarLoading";
 
 type ViewMode = "cards" | "calendar";
 
@@ -36,18 +37,14 @@ export default function MainPage() {
 
           {viewMode === "calendar" ? (
             <div className="p-4 bg-white rounded-lg shadow-md">
-              <Suspense fallback={"로딩중..."}>
+              <Suspense fallback={<CampaignListByCalendarLoading />}>
                 <CampaignListByCalendarFetcher />
               </Suspense>
             </div>
           ) : (
-            <div className="">
-              <ErrorBoundary fallback={<span>에러</span>}>
-                <Suspense fallback={<span>로딩중...</span>}>
-                  <CampaignListSortedByDeadlineFetcher />
-                </Suspense>
-              </ErrorBoundary>
-            </div>
+            <Suspense fallback={<CardListLoading />}>
+              <CampaignListSortedByDeadlineFetcher />
+            </Suspense>
           )}
         </div>
         <div className="flex justify-center pb-[77px] bg-gray-100">

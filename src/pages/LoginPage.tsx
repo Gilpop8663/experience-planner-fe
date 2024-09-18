@@ -1,54 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useLogin } from "@/hooks/mutation/user/useLogin";
-import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN } from "@/constants/localStorage";
 import { ROUTES } from "@/router/routes";
+import { Button } from "@/components/Button";
+import { useLoginForm } from "@/hooks/pages/login/useLoginForm";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    rememberMe: false,
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const { handleLogin, prefetchMyProfile } = useLogin();
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      const loginResult = await handleLogin({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (loginResult.data?.login.ok) {
-        const { token } = loginResult.data.login;
-
-        localStorage.setItem(ACCESS_TOKEN, token ?? "");
-        await prefetchMyProfile();
-        navigate("/?signup=success");
-        return;
-      }
-
-      setError(loginResult.data?.login.error || "자동 로그인에 실패했습니다.");
-    } catch (err) {
-      setError("이메일 또는 비밀번호가 올바르지 않습니다.");
-    }
-  };
+  const {
+    error,
+    formData,
+    handleChange,
+    handleShowPassword,
+    handleSubmit,
+    loading,
+    showPassword,
+  } = useLoginForm();
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -104,7 +68,7 @@ const LoginPage = () => {
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={handleShowPassword}
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5 text-gray-400" />
@@ -146,12 +110,9 @@ const LoginPage = () => {
             {error && <div className="text-red-600 text-sm">{error}</div>}
 
             <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
+              <Button type="submit" disabled={loading}>
                 로그인
-              </button>
+              </Button>
             </div>
           </form>
 

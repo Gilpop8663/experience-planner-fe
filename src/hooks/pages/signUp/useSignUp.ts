@@ -6,6 +6,7 @@ import { useCreateAccount } from "@/hooks/mutation/user/useCreateAccount";
 import { useLogin } from "@/hooks/mutation/user/useLogin";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "@/constants/localStorage";
+import { ROUTES } from "@/router/routes";
 
 interface FormData {
   email: string;
@@ -121,6 +122,7 @@ export const useSignUp = () => {
       const loginResult = await handleLogin({
         email: formData.email,
         password: formData.password,
+        rememberMe: false,
       });
 
       if (loginResult.data?.login.ok) {
@@ -128,7 +130,7 @@ export const useSignUp = () => {
 
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
         await prefetchMyProfile();
-        navigate("/?signup=success");
+        navigate(ROUTES.HOME);
         return;
       }
 

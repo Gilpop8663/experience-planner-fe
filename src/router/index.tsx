@@ -4,13 +4,13 @@ import MainPage from "@/pages/MainPage";
 import ExperienceDetailPage from "@/pages/DetailPage";
 import SignUpPage from "@/pages/SignUpPage";
 import LoginPage from "@/pages/LoginPage";
-import HealthCheckPage from "@/pages/HealthCheckPage";
 import LandingPage from "@/pages/LandingPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import { ROUTES } from "./routes";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import RegisterPage from "@/pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 interface RouterBase {
   path: string;
@@ -70,13 +70,13 @@ const routerData: RouterBase[] = [
     withAuth: true,
   },
   {
-    path: ROUTES.HEALTH_CHECK,
-    element: <HealthCheckPage />,
-    withAuth: true,
-  },
-  {
     path: ROUTES.RESET_PASSWORD, // 토큰을 URL 파라미터로 전달
     element: <ResetPasswordPage />,
+    withAuth: false,
+  },
+  {
+    path: ROUTES.NOT_FOUND,
+    element: <NotFoundPage />,
     withAuth: false,
   },
 ];

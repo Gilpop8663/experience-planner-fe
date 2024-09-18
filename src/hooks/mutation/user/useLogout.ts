@@ -14,17 +14,18 @@ interface Result {
 }
 
 export const useLogout = () => {
-  const navigate = useNavigate();
   const [logout, { data, error }] = useMutation<Result>(LOGOUT);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
-    const result = logout();
-    localStorage.removeItem(ACCESS_TOKEN);
+    const result = logout({
+      async onCompleted() {
+        localStorage.removeItem(ACCESS_TOKEN);
+        await client.resetStore();
 
-    // 아폴로 캐시 초기화
-    await client.resetStore();
-
-    navigate(ROUTES.LANDING);
+        navigate(ROUTES.LANDING);
+      },
+    });
 
     showPromiseToast(result, {
       success: "로그아웃에 성공했습니다! 🎉",

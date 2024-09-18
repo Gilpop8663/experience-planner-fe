@@ -9,6 +9,6 @@ export const ROUTES = {
   INFO: "/info",
   REGISTER: "/register",
   EDIT_REGISTER: "/register/edit/:id",
-  HEALTH_CHECK: "/health-check",
   RESET_PASSWORD: "/reset-password/:token",
+  NOT_FOUND: "*",
 };
