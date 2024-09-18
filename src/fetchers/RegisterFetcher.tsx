@@ -71,10 +71,26 @@ export default function RegisterFetcher() {
                 체험단 링크로 등록 시 약간의 시간이 걸릴 수 있습니다.
               </li>
               <div className="mt-2 p-3 bg-white border border-gray-300 rounded-md">
-                <code className="block text-blue-600">
-                  다른 체험단이나 기능을 원하신다면 디스코드나 블로그에 댓글로
-                  달아주세요!
-                </code>
+                <span className="block text-blue-600">
+                  다른 체험단이나 기능이 필요하시면 디스코드나 블로그에 댓글을
+                  남겨주세요!
+                </span>
+                <div className="flex justify-around my-2">
+                  <a
+                    href="https://blog.naver.com/investment-story/223588068176"
+                    target="_blank"
+                    className="mt-2 inline-block p-2 bg-orange-500 text-white rounded-md hover:bg-orange-400 transition"
+                  >
+                    블로그 방문하기
+                  </a>
+                  <a
+                    href="https://discord.gg/mdUhEKBku3"
+                    target="_blank"
+                    className="mt-2 inline-block p-2 bg-blue-500 text-white rounded-md hover:bg-blue-400 transition"
+                  >
+                    디스코드 방문하기
+                  </a>
+                </div>
               </div>
             </ol>
           </div>
