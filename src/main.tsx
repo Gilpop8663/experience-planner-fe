@@ -18,6 +18,7 @@ import { router } from "./router/index.tsx";
 import { ACCESS_TOKEN } from "./constants/localStorage.ts";
 import { onError } from "@apollo/client/link/error";
 import PortalToastContainer from "./components/Toast/PortalToastContainer.tsx";
+import ErrorBoundary from "./components/errorBoundary/ErrorBoundary.tsx";
 
 interface RefreshTokenResult {
   data: {
@@ -124,7 +125,9 @@ export const client = new ApolloClient({
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ApolloProvider client={client}>
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
       <PortalToastContainer />
     </React.StrictMode>
   </ApolloProvider>,

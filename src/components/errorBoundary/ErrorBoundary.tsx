@@ -1,10 +1,10 @@
 import React from "react";
+import ErrorFallback from "./ErrorFallback";
 /**
  * ErrorBoundary 컴포넌트의 프로퍼티를 정의합니다.
  * @interface ErrorBoundaryProps
  */
 interface ErrorBoundaryProps {
-  fallback: JSX.Element;
   children: JSX.Element;
 }
 
@@ -14,6 +14,7 @@ interface ErrorBoundaryProps {
  */
 interface ErrorBoundaryState {
   hasError: boolean;
+  error: Error | null; // 에러 객체를 저장
 }
 
 /**
@@ -27,11 +28,11 @@ class ErrorBoundary extends React.Component<
 > {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error: error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
@@ -40,7 +41,7 @@ class ErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback;
+      return <ErrorFallback error={this.state.error} />;
     }
 
     return this.props.children;
