@@ -130,7 +130,9 @@ export const useDirectInputRegister = () => {
       extraAmount,
       location,
       platformName,
-      reservationDate,
+      reservationDate: reservationDate
+        ? reservationDate
+        : new Date(0).toISOString(),
       reviewDeadline,
       serviceAmount,
       serviceDetails,

@@ -148,7 +148,7 @@ export default function Card(campaign: Campaign) {
               type="submit"
               className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
             >
-              선택하기
+              저장하기
             </button>
             <button
               onClick={handleReservationReset}
