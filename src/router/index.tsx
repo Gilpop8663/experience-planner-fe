@@ -8,9 +8,9 @@ import LandingPage from "@/pages/LandingPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
 import { ROUTES } from "./routes";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
-import RegisterPage from "@/pages/RegisterPage";
 import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "@/pages/NotFoundPage";
+import RegisterPage from "@/pages/RegisterPage";
 
 interface RouterBase {
   path: string;

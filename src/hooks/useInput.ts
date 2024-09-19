@@ -2,10 +2,12 @@ import React, { ChangeEvent, useRef, useState } from "react";
 
 export interface UseFormInputResult {
   value: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   setValue: (value: string) => void;
   validate: () => boolean;
-  ref: React.RefObject<HTMLInputElement>;
+  ref: React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
   showErrorMessage: (message: string) => void;
 }
 
@@ -21,11 +23,13 @@ export const useFormInput = ({
   validateFn = (value) => value,
 }: UseFormInputProps = {}) => {
   const [value, setValue] = useState(initialValue);
-  const ref = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (ref.current) {
-      ref.current.setCustomValidity("");
+  const onChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    if (inputRef.current) {
+      inputRef.current.setCustomValidity("");
     }
 
     const length = event.target.value.length;
@@ -46,17 +50,17 @@ export const useFormInput = ({
   };
 
   const showErrorMessage = (message: string) => {
-    if (!ref.current) return;
+    if (!inputRef.current) return;
 
-    ref.current.setCustomValidity(message);
-    ref.current.reportValidity();
+    inputRef.current.setCustomValidity(message);
+    inputRef.current.reportValidity();
   };
 
   const resetInputValue = () => {
     setValue("");
 
-    if (ref.current) {
-      ref.current.setCustomValidity("");
+    if (inputRef.current) {
+      inputRef.current.setCustomValidity("");
     }
   };
 
@@ -66,7 +70,7 @@ export const useFormInput = ({
     resetInputValue,
     setValue,
     validate,
-    ref,
+    inputRef,
     showErrorMessage,
   };
 };

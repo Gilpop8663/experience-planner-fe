@@ -22,6 +22,17 @@ export const CREATE_CAMPAIGN_DIRECTLY = gql`
   }
 `;
 
+// 강남맛집 본문 캠페인 생성
+export const CREATE_GANGNAM_CAMPAIGN = gql`
+  mutation ($input: CreateGangnamCampaignInput!) {
+    createGangnamCampaign(input: $input) {
+      ok
+      error
+      campaignId
+    }
+  }
+`;
+
 // 캠페인 수정
 export const EDIT_CAMPAIGN = gql`
   mutation ($input: EditCampaignInput!) {
