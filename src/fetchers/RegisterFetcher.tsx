@@ -68,7 +68,7 @@ export default function RegisterFetcher() {
                 선정된 체험단 링크를 복사 붙여넣기를 해줍니다.
               </li>
               <li className="text-gray-700">
-                현재는 강남맛집, 미블, 레뷰, 리뷰노트만 가능합니다.
+                현재는 미블, 레뷰, 리뷰노트만 가능합니다.
               </li>
               <li className="text-gray-700">
                 체험단 링크로 등록 시 약간의 시간이 걸릴 수 있습니다.
@@ -127,7 +127,7 @@ export default function RegisterFetcher() {
               htmlFor="platformName"
               className="block mb-2 text-sm font-medium text-gray-700"
             >
-              사이트명 (강남맛집, 인스타, 미블 등)
+              사이트명 (레뷰, 인스타, 미블 등)
             </label>
             <input
               type="text"
