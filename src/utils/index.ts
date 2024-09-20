@@ -41,8 +41,21 @@ export const formatDate = (dateString?: string) => {
   if (!dateString) {
     return "없음";
   }
+  console.log(dateString);
+  const utcDate = new Date(dateString);
 
-  return dateString.split("T")[0];
+  const localDate = utcDate.toLocaleString();
+
+  const day = utcDate.getDay();
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+
+  const [year, month, date] = localDate
+    .split("오후")[0]
+    .split(".")
+    .map((item) => item.trim());
+
+  return `${year}년 ${month}월 ${date}일 
+  ${dayNames[day]}요일`;
 };
 
 export const formatDateTime = (dateString?: string) => {
@@ -50,26 +63,21 @@ export const formatDateTime = (dateString?: string) => {
     return "";
   }
 
-  const date = new Date(dateString);
+  const utcDate = new Date(dateString);
 
-  const formattedDate = date
-    .toLocaleString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    })
+  const localDate = utcDate
+    .toLocaleString()
     .replace("AM", "오전") // 오전
     .replace("PM", "오후"); // 오후
 
-  const formattedArray = formattedDate.split(".").map((item) => item.trim());
-  const last = formattedArray.pop();
+  const [year, month, date, AM] = localDate
+    .split(".")
+    .map((item) => item.trim());
 
-  const result = formattedArray.join("-") + " " + last;
+  const day = utcDate.getDay();
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
-  return result;
+  return `${year}년 ${month}월 ${date}일 ${dayNames[day]}요일 ${AM}`;
 };
 
 export const convertToKST = (utcDate: string | null) => {

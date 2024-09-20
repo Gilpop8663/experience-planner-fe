@@ -77,8 +77,8 @@ export default function Card(campaign: Campaign) {
         </div>
         <div className="flex flex-col gap-7 mt-7 font-inter">
           <span className="text-lg">
-            <span className="font-bold">리뷰마감일: </span>
-            <span className="font-light">{formatDate(reviewDeadline)}</span>
+            <span className="font-bold">리뷰마감일</span>
+            <div className="font-light mt-2">{formatDate(reviewDeadline)}</div>
           </span>
           {location && (
             <span className="text-lg">
