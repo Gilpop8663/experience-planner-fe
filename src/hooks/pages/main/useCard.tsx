@@ -36,9 +36,11 @@ export const useCard = (campaign: Campaign) => {
       return;
     }
 
+    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
+
     const result = await handleEditCampaign({
       title,
-      reviewDeadline,
+      reviewDeadline: utcReviewDeadline,
       campaignId: campaign.id,
       reservationDate: new Date(0).toISOString(),
     });
@@ -56,10 +58,13 @@ export const useCard = (campaign: Campaign) => {
   ) => {
     event.preventDefault();
 
+    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
+    const utcReservationDate = new Date(formData.reservationDate).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
+
     const result = await handleEditCampaign({
       title: campaign.title,
-      reviewDeadline: campaign.reviewDeadline,
-      reservationDate: formData.reservationDate,
+      reviewDeadline: utcReviewDeadline,
+      reservationDate: utcReservationDate,
       campaignId: campaign.id,
     });
 
