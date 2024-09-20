@@ -2,7 +2,7 @@ import { useDeleteCampaign } from "@/hooks/mutation/campaign/useDeleteCampaign";
 import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import useOpen from "@/hooks/useOpen";
 import { Campaign } from "@/types/campaign";
-import { convertToKST } from "@/utils";
+import { convertToLocalTime } from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 export const useCard = (campaign: Campaign) => {
@@ -12,7 +12,7 @@ export const useCard = (campaign: Campaign) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [formData, setFormData] = useState({
-    reservationDate: convertToKST(reservationDate || ""),
+    reservationDate: convertToLocalTime(reservationDate || ""),
   });
 
   const [error, setError] = useState("");
@@ -94,7 +94,7 @@ export const useCard = (campaign: Campaign) => {
 
   useEffect(() => {
     setFormData({
-      reservationDate: convertToKST(reservationDate || ""),
+      reservationDate: convertToLocalTime(reservationDate || ""),
     });
   }, [reservationDate]);
 

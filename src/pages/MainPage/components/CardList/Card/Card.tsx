@@ -3,7 +3,7 @@ import DeleteCardModal from "@/components/modal/DeleteCardModal";
 import { useCard } from "@/hooks/pages/main/useCard";
 import { ROUTES } from "@/router/routes";
 import { Campaign } from "@/types/campaign";
-import { cls, formatDateTime, formatDate } from "@/utils";
+import { cls, formatDate, formatDateTime } from "@/utils";
 import { Link } from "react-router-dom";
 
 export default function Card(campaign: Campaign) {

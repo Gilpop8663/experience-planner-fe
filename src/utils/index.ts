@@ -37,14 +37,26 @@ export const timeAgo = (date: string) => {
   }
 };
 
+/**
+ *
+ * @param dateString
+ * @returns 2024년 9월 22일 일요일
+ */
 export const formatDate = (dateString?: string) => {
   if (!dateString) {
     return "없음";
   }
-  console.log(dateString);
   const utcDate = new Date(dateString);
 
-  const localDate = utcDate.toLocaleString();
+  const localDate = utcDate.toLocaleString("ko-KR", {
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
   const day = utcDate.getDay();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
@@ -54,41 +66,34 @@ export const formatDate = (dateString?: string) => {
     .split(".")
     .map((item) => item.trim());
 
-  return `${year}년 ${month}월 ${date}일 
-  ${dayNames[day]}요일`;
+  return `${year}년 ${month}월 ${date}일 ${dayNames[day]}요일`;
 };
 
-export const formatDateTime = (dateString?: string) => {
+/**
+ * @param dateString
+ * @returns 2024-09-04
+ */
+export const formatInputDate = (dateString?: string) => {
   if (!dateString) {
-    return "";
+    return "없음";
   }
 
   const utcDate = new Date(dateString);
 
-  const localDate = utcDate
-    .toLocaleString()
-    .replace("AM", "오전") // 오전
-    .replace("PM", "오후"); // 오후
+  // 로컬 시간으로 변환
+  const localDateString = utcDate.toLocaleString("ko-KR", {
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
 
-  const [year, month, date, AM] = localDate
+  // 'YYYY-MM-DD' 형식으로 변환
+  const [year, month, day] = localDateString
     .split(".")
     .map((item) => item.trim());
 
-  const day = utcDate.getDay();
-  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-
-  return `${year}년 ${month}월 ${date}일 ${dayNames[day]}요일 ${AM}`;
-};
-
-export const convertToKST = (utcDate: string | null) => {
-  if (!utcDate) {
-    return "";
-  }
-
-  const date = new Date(utcDate);
-  // KST (UTC+9)로 변환
-  date.setHours(date.getHours() + 9);
-  return date.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:mm' 형식으로 반환
+  return `${year}-${month}-${day}`;
 };
 
 export const getKoreanWeekday = (dateString: string | Date) => {
@@ -99,4 +104,65 @@ export const getKoreanWeekday = (dateString: string | Date) => {
   }
 
   return date.toLocaleDateString("ko-KR", { weekday: "long" });
+};
+
+/**
+ *
+ * @param utcDate
+ * @returns 2024-09-20T09:00
+ */
+export const convertToLocalTime = (utcDate: string | null) => {
+  if (!utcDate) {
+    return "";
+  }
+
+  const date = new Date(utcDate);
+
+  // 클라이언트의 시간대 사용
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  // 로컬 시간으로 변환
+  const localDateString = date.toLocaleString("ko-KR", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false, // 24시간 형식
+  });
+
+  // 날짜와 시간 분리
+  const datePart = localDateString.split(". ");
+  const timePart = datePart.pop();
+  const [year, month, day] = datePart.map((item) => item.trim());
+
+  // 'YYYY-MM-DDTHH:mm' 형식으로 변환
+  return `${year}-${month}-${day}T${timePart?.trim()}`;
+};
+
+export const formatDateTime = (dateString?: string) => {
+  if (!dateString) {
+    return "";
+  }
+
+  const utcDate = new Date(dateString); // UTC로 저장된 시간
+  const localDateString = utcDate.toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  const datePart = localDateString.split(". ");
+  const timePart = datePart.pop();
+  const [year, month, date] = datePart.map((item) => item.trim());
+
+  // 요일 구하기
+  const day = utcDate.getDay();
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+
+  return `${year}년 ${month}월 ${date}일 ${dayNames[day]}요일  ${timePart?.trim()}`;
 };

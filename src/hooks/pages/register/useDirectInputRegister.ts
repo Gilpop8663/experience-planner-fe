@@ -4,7 +4,7 @@ import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import { useGetCampaignDetail } from "@/hooks/query/campaign/useGetCampaignDetail";
 import { useMyProfile } from "@/hooks/query/user/useMyProfile";
 import { ROUTES } from "@/router/routes";
-import { convertToKST, formatDate, getKoreanWeekday } from "@/utils";
+import { convertToLocalTime, formatInputDate, getKoreanWeekday } from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -97,6 +97,12 @@ export const useDirectInputRegister = () => {
 
     if (directLoading || editLoading) return;
 
+    const utcReservationDate = reservationDate
+      ? new Date(reservationDate).toISOString() // 사용자가 입력한 날짜를 UTC로 변환
+      : new Date(0).toISOString();
+
+    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
+
     if (data.getCampaignDetail.ok) {
       const result = await handleEditCampaign({
         campaignId: Number(id),
@@ -105,10 +111,8 @@ export const useDirectInputRegister = () => {
         serviceAmount,
         location,
         platformName,
-        reservationDate: reservationDate
-          ? reservationDate
-          : new Date(0).toISOString(),
-        reviewDeadline,
+        reservationDate: utcReservationDate,
+        reviewDeadline: utcReviewDeadline,
         serviceDetails,
         detailedViewLink,
       });
@@ -130,10 +134,8 @@ export const useDirectInputRegister = () => {
       extraAmount,
       location,
       platformName,
-      reservationDate: reservationDate
-        ? reservationDate
-        : new Date(0).toISOString(),
-      reviewDeadline,
+      reservationDate: utcReservationDate,
+      reviewDeadline: utcReviewDeadline,
       serviceAmount,
       serviceDetails,
       userId: user.id,
@@ -162,8 +164,8 @@ export const useDirectInputRegister = () => {
     setFormData({
       title: campaign.title ?? "",
       platformName: campaign.platformName ?? "",
-      reviewDeadline: formatDate(campaign.reviewDeadline || ""),
-      reservationDate: convertToKST(campaign.reservationDate || ""),
+      reviewDeadline: formatInputDate(campaign.reviewDeadline || ""),
+      reservationDate: convertToLocalTime(campaign.reservationDate || ""),
       serviceAmount: campaign.serviceAmount ?? 0,
       serviceDetails: campaign.serviceDetails ?? "",
       location: campaign.location ?? "",
