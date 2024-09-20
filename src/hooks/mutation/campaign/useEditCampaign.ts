@@ -15,8 +15,8 @@ interface Result {
 
 interface Props {
   campaignId: number;
-  title: string;
-  reviewDeadline: string;
+  title?: string;
+  reviewDeadline?: string;
   platformName?: string;
   serviceDetails?: string;
   location?: string;

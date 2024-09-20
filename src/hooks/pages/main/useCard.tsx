@@ -6,7 +6,7 @@ import { convertToLocalTime } from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 export const useCard = (campaign: Campaign) => {
-  const { title, reservationDate, reviewDeadline } = campaign;
+  const { reservationDate } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -36,11 +36,7 @@ export const useCard = (campaign: Campaign) => {
       return;
     }
 
-    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
-
     const result = await handleEditCampaign({
-      title,
-      reviewDeadline: utcReviewDeadline,
       campaignId: campaign.id,
       reservationDate: new Date(0).toISOString(),
     });
@@ -58,12 +54,9 @@ export const useCard = (campaign: Campaign) => {
   ) => {
     event.preventDefault();
 
-    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
     const utcReservationDate = new Date(formData.reservationDate).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
 
     const result = await handleEditCampaign({
-      title: campaign.title,
-      reviewDeadline: utcReviewDeadline,
       reservationDate: utcReservationDate,
       campaignId: campaign.id,
     });
