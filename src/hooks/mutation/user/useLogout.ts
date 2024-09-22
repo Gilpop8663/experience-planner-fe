@@ -18,14 +18,7 @@ export const useLogout = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    const result = logout({
-      async onCompleted() {
-        localStorage.removeItem(ACCESS_TOKEN);
-        await client.resetStore();
-
-        navigate(ROUTES.LANDING);
-      },
-    });
+    const result = logout();
 
     showPromiseToast(
       result.then((res) => {
@@ -34,6 +27,11 @@ export const useLogout = () => {
             res.data?.logout.error || "로그아웃에 실패했습니다! 😢",
           );
         }
+
+        localStorage.removeItem(ACCESS_TOKEN);
+        client.resetStore();
+
+        navigate(ROUTES.HOME);
         return res;
       }),
       {
