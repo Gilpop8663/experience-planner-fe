@@ -48,23 +48,12 @@ export const formatDate = (dateString?: string) => {
   }
   const utcDate = new Date(dateString);
 
-  const localDate = utcDate.toLocaleString("ko-KR", {
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+  const year = utcDate.getFullYear();
+  const month = utcDate.getMonth() + 1;
+  const date = utcDate.getDate();
 
   const day = utcDate.getDay();
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-
-  const [year, month, date] = localDate
-    .split("오후")[0]
-    .split(".")
-    .map((item) => item.trim());
 
   return `${year}년 ${month}월 ${date}일 ${dayNames[day]}요일`;
 };
