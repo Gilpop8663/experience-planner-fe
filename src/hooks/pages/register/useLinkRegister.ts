@@ -36,7 +36,7 @@ export const useLinkRegister = () => {
       return;
     }
 
-    navigate(ROUTES.HOME);
+    navigate(ROUTES.MAIN);
   };
 
   return { handleSiteUrlSubmit, loading, error, siteUrl };

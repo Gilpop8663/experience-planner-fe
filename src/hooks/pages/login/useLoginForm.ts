@@ -40,7 +40,7 @@ export const useLoginForm = () => {
 
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
         await prefetchMyProfile();
-        navigate(ROUTES.HOME);
+        navigate(ROUTES.MAIN);
         return;
       }
 

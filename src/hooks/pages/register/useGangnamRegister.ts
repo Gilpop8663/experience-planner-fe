@@ -33,7 +33,7 @@ export const useGangnamRegister = () => {
       return;
     }
 
-    navigate(ROUTES.HOME);
+    navigate(ROUTES.MAIN);
   };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {

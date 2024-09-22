@@ -20,11 +20,6 @@ interface RouterBase {
 
 const routerData: RouterBase[] = [
   {
-    path: ROUTES.HOME,
-    element: <MainPage />,
-    withAuth: true,
-  },
-  {
     path: ROUTES.MAIN,
     element: <MainPage />,
     withAuth: true,
@@ -55,7 +50,7 @@ const routerData: RouterBase[] = [
     withAuth: false,
   },
   {
-    path: ROUTES.LANDING,
+    path: ROUTES.HOME,
     element: <LandingPage />,
     withAuth: false,
   },

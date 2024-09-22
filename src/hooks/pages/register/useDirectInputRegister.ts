@@ -124,7 +124,7 @@ export const useDirectInputRegister = () => {
         return;
       }
 
-      navigate(ROUTES.HOME);
+      navigate(ROUTES.MAIN);
 
       return;
     }
@@ -150,7 +150,7 @@ export const useDirectInputRegister = () => {
       return;
     }
 
-    navigate(ROUTES.HOME);
+    navigate(ROUTES.MAIN);
   };
 
   useEffect(() => {

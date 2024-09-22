@@ -134,7 +134,7 @@ export const useSignUp = () => {
         localStorage.setItem(ACCESS_TOKEN, token ?? "");
         await prefetchMyProfile();
         setCreateAccountError("");
-        navigate(ROUTES.HOME);
+        navigate(ROUTES.MAIN);
         return;
       }
 

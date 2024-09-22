@@ -10,7 +10,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(ROUTES.HOME); // 홈으로 이동
+    navigate(ROUTES.MAIN); // 홈으로 이동
   };
 
   const resetErrorBoundary = () => {

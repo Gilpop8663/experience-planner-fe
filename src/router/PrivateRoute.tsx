@@ -7,7 +7,7 @@ export default function PrivateRoute({ children }: PropsWithChildren) {
   const user = localStorage.getItem(ACCESS_TOKEN);
 
   if (!user) {
-    return <Navigate replace to={ROUTES.LANDING} />;
+    return <Navigate replace to={ROUTES.HOME} />;
   }
 
   return children;

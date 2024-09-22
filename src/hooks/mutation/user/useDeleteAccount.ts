@@ -26,7 +26,7 @@ export const useDeleteAccount = () => {
       async onCompleted(_, clientOptions) {
         localStorage.removeItem(ACCESS_TOKEN);
         await clientOptions?.client?.resetStore();
-        navigate(ROUTES.LANDING);
+        navigate(ROUTES.HOME);
       },
     });
 
