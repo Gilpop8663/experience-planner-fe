@@ -42,6 +42,7 @@ export const useCard = (campaign: Campaign) => {
     });
 
     if (!result.data?.editCampaign.ok) {
+      console.log(result);
       setError("방문 날짜 선택에 실패했습니다.");
       return;
     }
@@ -62,6 +63,7 @@ export const useCard = (campaign: Campaign) => {
     });
 
     if (!result.data?.editCampaign.ok) {
+      console.log(result);
       setError("방문 날짜 선택에 실패했습니다.");
       return;
     }
