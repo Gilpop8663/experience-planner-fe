@@ -21,6 +21,7 @@ export const GET_CALENDAR_CAMPAIGN_LIST = gql`
         detailedViewLink
         updatedAt
         createdAt
+        isReviewCompleted
       }
     }
   }
@@ -47,6 +48,7 @@ export const GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE = gql`
         detailedViewLink
         updatedAt
         createdAt
+        isReviewCompleted
       }
     }
   }
@@ -73,6 +75,7 @@ export const GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE = gql`
         detailedViewLink
         updatedAt
         createdAt
+        isReviewCompleted
       }
     }
   }
@@ -98,6 +101,7 @@ export const GET_CAMPAIGN_DETAIL = gql`
         detailedViewLink
         updatedAt
         createdAt
+        isReviewCompleted
       }
     }
   }

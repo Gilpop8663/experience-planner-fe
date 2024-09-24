@@ -14,4 +14,5 @@ export interface Campaign {
   extraAmount?: number;
   location?: string;
   detailedViewLink?: string;
+  isReviewCompleted: boolean;
 }

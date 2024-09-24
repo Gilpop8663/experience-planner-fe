@@ -52,3 +52,13 @@ export const DELETE_CAMPAIGN = gql`
     }
   }
 `;
+
+// 캠페인 리뷰 완료 후 종료 상태 변경
+export const COMPLETE_REVIEW_AND_END_CAMPAIGN = gql`
+  mutation ($input: CompleteReviewAndEndCampaignInput!) {
+    completeReviewAndEndCampaign(input: $input) {
+      ok
+      error
+    }
+  }
+`;

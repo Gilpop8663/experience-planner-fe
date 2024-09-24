@@ -1,3 +1,4 @@
+import { useCompleteReviewAndEndCampaign } from "@/hooks/mutation/campaign/useCompleteReviewAndEndCampaign";
 import { useDeleteCampaign } from "@/hooks/mutation/campaign/useDeleteCampaign";
 import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import useOpen from "@/hooks/useOpen";
@@ -19,6 +20,8 @@ export const useCard = (campaign: Campaign) => {
 
   const { handleEditCampaign } = useEditCampaign();
   const { handleDeleteCampaign } = useDeleteCampaign();
+  const { handleCompleteReviewAndEndCampaign } =
+    useCompleteReviewAndEndCampaign();
 
   const { close, isOpen, toggleOpen } = useOpen();
   const deleteModal = useOpen();
@@ -86,6 +89,10 @@ export const useCard = (campaign: Campaign) => {
     deleteModal.close();
   };
 
+  const handleCompleteReview = () => {
+    handleCompleteReviewAndEndCampaign({ campaignId: campaign.id });
+  };
+
   useEffect(() => {
     if (isOpen && formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
@@ -112,6 +119,7 @@ export const useCard = (campaign: Campaign) => {
     deleteModal,
     handleDeleteModalOpen,
     handleDelete,
+    handleCompleteReview,
     close,
   };
 };

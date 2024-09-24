@@ -1,3 +1,4 @@
+import { Button } from "@/components/Button";
 import EllipsisVertical from "@/components/icons/EllipsisVertical";
 import DeleteCardModal from "@/components/modal/DeleteCardModal";
 import { useCard } from "@/hooks/pages/main/useCard";
@@ -15,6 +16,7 @@ export default function Card(campaign: Campaign) {
     location,
     detailedViewLink,
     reviewDeadline,
+    isReviewCompleted,
   } = campaign;
 
   const {
@@ -31,6 +33,7 @@ export default function Card(campaign: Campaign) {
     deleteModal,
     handleDeleteModalOpen,
     handleDelete,
+    handleCompleteReview,
     close,
   } = useCard(campaign);
 
@@ -112,6 +115,12 @@ export default function Card(campaign: Campaign) {
         </span>
 
         <span className="text-sm">{formatDateTime(reservationDate)}</span>
+
+        {!isReviewCompleted && (
+          <Button type="button" className="mt-4" onClick={handleCompleteReview}>
+            리뷰 완료 및 종료
+          </Button>
+        )}
 
         {isOpen && (
           <form
