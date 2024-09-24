@@ -11,6 +11,7 @@ import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "@/pages/NotFoundPage";
 import RegisterPage from "@/pages/RegisterPage";
+import MainRedirect from "./MainRedirect";
 
 interface RouterBase {
   path: string;
@@ -86,7 +87,7 @@ const formattedRouter = routerData.map((route) => {
 
   return {
     path: route.path,
-    element: route.element,
+    element: <MainRedirect>{route.element}</MainRedirect>,
   };
 });
 
