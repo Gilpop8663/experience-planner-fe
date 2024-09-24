@@ -17,6 +17,7 @@ export const ME = gql`
       email
       nickname
       point
+      role
       createdAt
       updatedAt
     }

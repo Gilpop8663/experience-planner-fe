@@ -3,4 +3,5 @@ export interface User {
   email: string;
   point: number;
   nickname: string;
+  role: "ADMIN" | "USER";
 }

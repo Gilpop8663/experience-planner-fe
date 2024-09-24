@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import NotFoundPage from "@/pages/NotFoundPage";
 import RegisterPage from "@/pages/RegisterPage";
 import MainRedirect from "./MainRedirect";
+import AdminPage from "@/pages/AdminPage";
 
 interface RouterBase {
   path: string;
@@ -69,6 +70,11 @@ const routerData: RouterBase[] = [
     path: ROUTES.RESET_PASSWORD, // 토큰을 URL 파라미터로 전달
     element: <ResetPasswordPage />,
     withAuth: false,
+  },
+  {
+    path: ROUTES.ADMIN,
+    element: <AdminPage />,
+    withAuth: true,
   },
   {
     path: ROUTES.NOT_FOUND,

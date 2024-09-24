@@ -10,5 +10,6 @@ export const ROUTES = {
   REGISTER: "/register",
   EDIT_REGISTER: "/register/edit/:id",
   RESET_PASSWORD: "/reset-password/:token",
+  ADMIN: "/admin",
   NOT_FOUND: "*",
 };

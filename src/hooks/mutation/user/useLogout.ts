@@ -1,5 +1,6 @@
 import { ACCESS_TOKEN } from "@/constants/localStorage";
 import { LOGOUT } from "@/gql/mutation/user";
+import { ME } from "@/gql/query/user";
 import { showPromiseToast } from "@/lib/toast";
 import { client } from "@/main";
 import { ROUTES } from "@/router/routes";
@@ -29,7 +30,7 @@ export const useLogout = () => {
         }
 
         localStorage.removeItem(ACCESS_TOKEN);
-        client.resetStore();
+        // client.resetStore();
 
         navigate(ROUTES.HOME);
         return res;
