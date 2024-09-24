@@ -28,11 +28,13 @@ export const Primary: Story = {
     detailedViewLink: "",
     location: "서울 송파구 충민로 66 (가든파이브라이프)",
     isReserved: true,
+    isReviewCompleted: false,
     user: {
       id: 1,
       email: "",
       nickname: "",
       point: 0,
+      role: "USER",
     },
     id: 1,
   },

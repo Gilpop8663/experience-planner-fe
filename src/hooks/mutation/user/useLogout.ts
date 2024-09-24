@@ -1,8 +1,6 @@
 import { ACCESS_TOKEN } from "@/constants/localStorage";
 import { LOGOUT } from "@/gql/mutation/user";
-import { ME } from "@/gql/query/user";
 import { showPromiseToast } from "@/lib/toast";
-import { client } from "@/main";
 import { ROUTES } from "@/router/routes";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
