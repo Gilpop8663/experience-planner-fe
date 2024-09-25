@@ -3,6 +3,7 @@ import { EDIT_CAMPAIGN } from "@/gql/mutation/campaign";
 import {
   GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
   GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE,
+  GET_TOTAL_SPONSORSHIP_COST_AND_CONSUMPTION,
 } from "@/gql/query/campaign";
 import { showPromiseToast } from "@/lib/toast";
 
@@ -36,6 +37,7 @@ export const useEditCampaign = () => {
       refetchQueries: [
         { query: GET_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
         { query: GET_EXPIRED_CAMPAIGN_LIST_SORTED_BY_DEADLINE },
+        { query: GET_TOTAL_SPONSORSHIP_COST_AND_CONSUMPTION },
       ],
     });
 
