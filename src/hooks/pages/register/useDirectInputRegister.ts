@@ -80,6 +80,15 @@ export const useDirectInputRegister = () => {
     setFormData({ ...formData, [name]: getValue() });
   };
 
+  const successRoute = () => {
+    if (window.history.state.idx > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate(ROUTES.MAIN);
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -124,8 +133,7 @@ export const useDirectInputRegister = () => {
         return;
       }
 
-      navigate(ROUTES.MAIN);
-
+      successRoute();
       return;
     }
 
