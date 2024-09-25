@@ -17,6 +17,8 @@ export default function Card(campaign: Campaign) {
     detailedViewLink,
     reviewDeadline,
     isReviewCompleted,
+    extraAmount,
+    serviceAmount,
   } = campaign;
 
   const {
@@ -94,6 +96,26 @@ export default function Card(campaign: Campaign) {
               <span className="font-bold">제공: </span>
               <span className="font-light break-words">{serviceDetails}</span>
             </span>
+          )}
+          {serviceAmount ? (
+            <span className="text-lg">
+              <span className="font-bold">협찬받은 비용: </span>
+              <span className="font-light break-words">
+                {serviceAmount.toLocaleString()}원
+              </span>
+            </span>
+          ) : (
+            ""
+          )}
+          {extraAmount ? (
+            <span className="text-lg">
+              <span className="font-bold">추가로 사용한 비용: </span>
+              <span className="font-light break-words">
+                {extraAmount.toLocaleString()}원
+              </span>
+            </span>
+          ) : (
+            ""
           )}
           {detailedViewLink && (
             <a
