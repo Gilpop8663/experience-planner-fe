@@ -54,6 +54,7 @@ interface Result {
   start: Date;
   end: Date;
   kind: "holiday";
+  resource: string;
 }
 
 /**
@@ -96,6 +97,7 @@ const formattedHoliday = (holidayList: Holiday[]): Result[] => {
       start: startDate,
       end: endDate,
       kind: "holiday",
+      resource: `h-${index}`,
     };
   });
 };

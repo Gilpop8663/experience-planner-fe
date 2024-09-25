@@ -15,7 +15,19 @@ const now = new Date();
 
 export type CampaignType = "deadline" | "reservation" | "holiday";
 
-const formattedCampaign = (campaignList: Campaign[], kind: CampaignType) => {
+interface Result {
+  id: number;
+  title: string;
+  start: Date;
+  end: Date;
+  kind: CampaignType;
+  resource: number;
+}
+
+const formattedCampaign = (
+  campaignList: Campaign[],
+  kind: CampaignType,
+): Result[] => {
   if (kind === "reservation") {
     return campaignList.map((item) => {
       const startDate = item.reservationDate
@@ -25,6 +37,7 @@ const formattedCampaign = (campaignList: Campaign[], kind: CampaignType) => {
       endDate.setHours(endDate.getHours() + 2); // endDate에 2시간 추가
 
       return {
+        resource: item.id,
         id: item.id,
         title: item.title,
         start: startDate,
@@ -42,6 +55,7 @@ const formattedCampaign = (campaignList: Campaign[], kind: CampaignType) => {
     endDate.setHours(23, 59, 0, 0); // 24시로 설정 (다음 날 0시)
 
     return {
+      resource: item.id,
       id: item.id,
       title: item.title,
       start: startDate,

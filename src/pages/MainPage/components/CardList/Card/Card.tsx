@@ -117,6 +117,12 @@ export default function Card(campaign: Campaign) {
           ) : (
             ""
           )}
+          <Link
+            to={`/details/${id}`}
+            className="text-lg cursor-pointer font-bold hover:bg-black/10 w-fit"
+          >
+            체험단 자세히 보기
+          </Link>
           {detailedViewLink && (
             <a
               target="_blank"

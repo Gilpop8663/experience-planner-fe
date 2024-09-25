@@ -2,11 +2,14 @@ import { useCompleteReviewAndEndCampaign } from "@/hooks/mutation/campaign/useCo
 import { useDeleteCampaign } from "@/hooks/mutation/campaign/useDeleteCampaign";
 import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import useOpen from "@/hooks/useOpen";
+import { ROUTES } from "@/router/routes";
 import { Campaign } from "@/types/campaign";
 import { convertToLocalTime } from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const useCard = (campaign: Campaign) => {
+  const { id } = useParams();
   const { reservationDate } = campaign;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +18,7 @@ export const useCard = (campaign: Campaign) => {
   const [formData, setFormData] = useState({
     reservationDate: convertToLocalTime(reservationDate || ""),
   });
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
 
@@ -85,6 +89,10 @@ export const useCard = (campaign: Campaign) => {
   const handleDelete = async () => {
     await handleDeleteCampaign({ campaignId: campaign.id });
     deleteModal.close();
+
+    if (id) {
+      navigate(ROUTES.HOME);
+    }
   };
 
   const handleCompleteReview = () => {

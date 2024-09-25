@@ -5,6 +5,7 @@ import {
   HeaderProps,
 } from "react-big-calendar";
 import { CampaignType, useCalendar } from "@/hooks/pages/main/useCalendar";
+import { Link } from "react-router-dom";
 
 export default function CampaignListByCalendarFetcher() {
   const {
@@ -140,11 +141,13 @@ function DateCellContent({ date, label }: DateHeaderProps) {
 
 interface Props extends Event {
   event: {
+    resource: string | number;
     kind: CampaignType;
   };
 }
 
-function EventContent({ title, event }: Props) {
+function EventContent(props: Props) {
+  const { title, event } = props;
   const getSubtitle = () => {
     if (event.kind === "reservation") {
       return "[방문] ";
@@ -159,5 +162,11 @@ function EventContent({ title, event }: Props) {
     }
   };
 
-  return <span>{`${getSubtitle()}${title}`}</span>;
+  if (isNaN(Number(event.resource))) {
+    return <span>{`${getSubtitle()}${title}`}</span>;
+  }
+
+  return (
+    <Link to={`/details/${event.resource}`}>{`${getSubtitle()}${title}`}</Link>
+  );
 }

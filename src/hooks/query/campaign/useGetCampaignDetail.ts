@@ -7,6 +7,7 @@ interface Result {
     ok: boolean;
     error: null | string;
     data: Campaign;
+    nearByCampaign: Campaign[];
   };
 }
 

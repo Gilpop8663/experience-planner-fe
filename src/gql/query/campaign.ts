@@ -103,6 +103,12 @@ export const GET_CAMPAIGN_DETAIL = gql`
         createdAt
         isReviewCompleted
       }
+      nearByCampaign {
+        id
+        title
+        location
+        reviewDeadline
+      }
     }
   }
 `;
