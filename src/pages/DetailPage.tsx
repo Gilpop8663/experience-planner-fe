@@ -1,7 +1,7 @@
+import { Suspense } from "react";
 import Layout from "@/components/Layout";
 import Skeleton from "@/components/suspense/Skeleton";
 import CampaignDetailFetcher from "@/fetchers/CampaignDetailFetcher";
-import { Suspense } from "react";
 
 const ExperienceDetailPage = () => {
   return (

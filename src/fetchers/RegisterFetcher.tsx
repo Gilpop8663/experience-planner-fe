@@ -1,6 +1,6 @@
+import { useRegister } from "@/hooks/pages/register/useRegister";
 import TabContent from "@/components/Tabs/TabContent";
 import Tabs from "@/components/Tabs/Tabs";
-import { useRegister } from "@/hooks/pages/register/useRegister";
 import ContentPasteTab from "@/pages/RegisterPage/components/ContentPasteTab";
 import DirectInputTab from "@/pages/RegisterPage/components/DirectInputTab";
 import LinkRegisterTab from "@/pages/RegisterPage/components/LinkRegisterTab";
