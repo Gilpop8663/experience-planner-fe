@@ -43,7 +43,7 @@ export default function Card(campaign: Campaign) {
     <div
       className={cls(
         reservationDate ? "bg-[#B6E790]" : "bg-[#FFB0B0]",
-        "w-[240px] h-[360px] sm:w-[280px] sm:h-[420px]  md:w-[300px] md:h-[460px] lg:w-[330px] lg:h-[510px] rounded-sm shadow-lg py-5 px-4 sm:py-6 md:py-8 md:px-6 lg:py-11 lg:px-7 flex flex-col justify-between relative overflow-scroll",
+        "w-[240px] h-[510px] sm:w-[280px] md:w-[300px] md:h-[560px] lg:w-[330px] lg:h-[640px] rounded-sm shadow-lg py-5 px-4 sm:py-6 md:py-8 md:px-6 lg:py-11 lg:px-7 flex flex-col justify-between relative overflow-scroll",
       )}
     >
       <div>

@@ -18,7 +18,7 @@ export default function MainPage() {
   return (
     <Layout>
       <div className="min-h-screen bg-gray-100 absolute top-0 left-0 w-full -z-10" />
-      <div className="">
+      <div className="bg-gray-100">
         <div className="container px-4 py-8 mx-auto">
           <div className="mb-6">
             <button

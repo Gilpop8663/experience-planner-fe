@@ -25,11 +25,11 @@ export default function ExperienceRegistrationFetcher() {
 
   return (
     <div>
-      <Card className="w-full max-w-3xl mx-auto mt-28">
+      <Card className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-3xl mx-auto mt-28">
         <CardHeader>
           <CardTitle>사용자 정보</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="text-xs md:text-sm lg:text-base">
           {!isOpen && (
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
@@ -40,7 +40,12 @@ export default function ExperienceRegistrationFetcher() {
                 <span>닉네임: </span>
                 <span>{user.nickname}</span>
               </div>
-              <Button onClick={open}>비밀번호 변경하기</Button>
+              <Button
+                onClick={open}
+                className="text-xs md:text-sm lg:text-base"
+              >
+                비밀번호 변경하기
+              </Button>
             </div>
           )}
           {isOpen && (
@@ -54,7 +59,12 @@ export default function ExperienceRegistrationFetcher() {
                 <span>{user.nickname}</span>
               </div>
               <div>
-                <Label htmlFor="prevPassword">이전 비밀번호</Label>
+                <Label
+                  htmlFor="prevPassword"
+                  className="text-xs md:text-sm lg:text-base"
+                >
+                  이전 비밀번호
+                </Label>
                 <div className="mt-1 relative">
                   <Input
                     id="prevPassword"
@@ -86,7 +96,12 @@ export default function ExperienceRegistrationFetcher() {
                 </div>
               </div>
               <div>
-                <Label htmlFor="password">새로운 비밀번호</Label>
+                <Label
+                  htmlFor="password"
+                  className="text-xs md:text-sm lg:text-base"
+                >
+                  새로운 비밀번호
+                </Label>
                 <div className="mt-1 relative">
                   <Input
                     id="password"
@@ -119,7 +134,12 @@ export default function ExperienceRegistrationFetcher() {
               </div>
 
               <div>
-                <Label htmlFor="confirmPassword">새로운 비밀번호 확인</Label>
+                <Label
+                  htmlFor="confirmPassword"
+                  className="text-xs md:text-sm lg:text-base"
+                >
+                  새로운 비밀번호 확인
+                </Label>
                 <div className="mt-1 relative">
                   <Input
                     id="confirmPassword"
@@ -150,20 +170,22 @@ export default function ExperienceRegistrationFetcher() {
                   </p>
                 )}
               </div>
-              <Button type="submit">저장하기</Button>
+              <Button type="submit" className="text-xs md:text-sm lg:text-base">
+                저장하기
+              </Button>
             </form>
           )}
         </CardContent>
       </Card>
       <div className="flex justify-center p-8">
-        <Card className="w-full max-w-screen-2xl">
+        <Card className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-3xl  l">
           <div className="flex justify-evenly">
             <div>
               <CardHeader>
                 <CardTitle>총 협찬 비용</CardTitle>
               </CardHeader>
-              <CardContent>
-                <span className="text-lg">
+              <CardContent className="text-xs md:text-sm lg:text-base">
+                <span className="">
                   {data.getTotalSponsorshipCostAndConsumption.totalSponsorshipCost.toLocaleString(
                     "ko-KR",
                   )}
@@ -175,8 +197,8 @@ export default function ExperienceRegistrationFetcher() {
               <CardHeader>
                 <CardTitle>총 소비한 비용</CardTitle>
               </CardHeader>
-              <CardContent>
-                <span className="text-lg">
+              <CardContent className="text-xs md:text-sm lg:text-base">
+                <span className="">
                   {data.getTotalSponsorshipCostAndConsumption.totalConsumptionCost.toLocaleString(
                     "ko-KR",
                   )}
@@ -193,12 +215,15 @@ export default function ExperienceRegistrationFetcher() {
           </CardContent>
         </Card>
       </div>
-      <Card className="w-full max-w-3xl mx-auto py-8 mb-28">
+      <Card className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-3xl  mx-auto py-8 mb-28">
         <CardHeader>
           <CardTitle>회원 탈퇴</CardTitle>
         </CardHeader>
-        <CardContent>
-          <Button onClick={deleteModal.toggleOpen} className="bg-red-600">
+        <CardContent className="text-xs md:text-sm lg:text-base">
+          <Button
+            onClick={deleteModal.toggleOpen}
+            className="bg-red-600 text-xs md:text-sm lg:text-base"
+          >
             회원 탈퇴하기
           </Button>
         </CardContent>
