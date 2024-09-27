@@ -7,7 +7,7 @@ const ExperienceDetailPage = () => {
   return (
     <Layout>
       <Suspense fallback={<Skeleton className="h-48" />}>
-        <CampaignDetailFetcher />;
+        <CampaignDetailFetcher />
       </Suspense>
     </Layout>
   );

@@ -13,7 +13,6 @@ import {
   Link as LinkIcon,
   ArrowLeft,
 } from "lucide-react";
-import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function CampaignDetailFetcher() {
@@ -50,7 +49,7 @@ export default function CampaignDetailFetcher() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-32 border">
+    <div className="w-full max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg my-8 md:my-16 lg:my-32 border">
       <button
         className="flex items-center text-gray-600 hover:text-gray-800 mb-4"
         onClick={handleBackRoute}
@@ -60,7 +59,9 @@ export default function CampaignDetailFetcher() {
       </button>
 
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold mb-6">{campaign.title}</h1>
+        <h1 className="w-full text-xl md:text-2xl lg:text-3xl break-words font-bold mb-6">
+          {campaign.title}
+        </h1>
         <span className="cursor-pointer relative" onClick={handleActionClick}>
           <div className="rounded-full hover:bg-black/10 p-0.5">
             <EllipsisVertical />
@@ -93,46 +94,62 @@ export default function CampaignDetailFetcher() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-xs md:text-sm lg:text-base">
         <div className="space-y-4">
-          <p className="flex items-center">
-            <MapPin className="mr-2" size={20} />
-            {campaign.location}
-          </p>
+          {campaign.location && (
+            <p className="flex items-center">
+              <MapPin className="mr-2" size={20} />
+              {campaign.location}
+            </p>
+          )}
           <p className="flex items-center">
             <Calendar className="mr-2" size={20} />
             <span>리뷰 마감일:</span>
             <span>{formatDate(campaign.reviewDeadline)}</span>
           </p>
-          <p className="flex items-center">
-            <DollarSign className="mr-2" size={20} />
-            협찬 비용: {campaign.serviceAmount}
-          </p>
-          <p className="flex items-center">
-            <DollarSign className="mr-2" size={20} />
-            추가로 사용한 비용: {campaign.extraAmount}
-          </p>
-          <p className="flex items-center">
-            <Package className="mr-2" size={20} />
-            제공: {campaign.serviceDetails}
-          </p>
+          {campaign.serviceAmount ? (
+            <p className="flex items-center">
+              <DollarSign className="mr-2" size={20} />
+              협찬 비용: {campaign.serviceAmount}
+            </p>
+          ) : (
+            ""
+          )}
+          {campaign.extraAmount ? (
+            <p className="flex items-center">
+              <DollarSign className="mr-2" size={20} />
+              추가로 사용한 비용: {campaign.extraAmount}
+            </p>
+          ) : (
+            ""
+          )}
+          {campaign.serviceDetails && (
+            <p className="flex items-center">
+              <Package className="mr-2" size={20} />
+              제공: {campaign.serviceDetails}
+            </p>
+          )}
         </div>
         <div className="space-y-4">
-          <p className="font-semibold">사이트: {campaign.platformName}</p>
-          <a
-            href={campaign.detailedViewLink}
-            className="text-blue-500 hover:underline flex items-center"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <LinkIcon className="mr-2" size={20} />
-            자세히 보기
-          </a>
+          {campaign.platformName && (
+            <p className="font-semibold">플랫폼: {campaign.platformName}</p>
+          )}
+          {campaign.detailedViewLink && (
+            <a
+              href={campaign.detailedViewLink}
+              className="text-blue-500 hover:underline flex items-center"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkIcon className="mr-2" size={20} />
+              자세히 보기
+            </a>
+          )}
 
           <div className="flex flex-col mt-4  font-inter">
             <span
               onClick={toggleOpen}
-              className="text-lg font-bold hover:bg-black/10 cursor-pointer w-fit"
+              className="text-sm md:text-base lg:text-lg font-bold hover:bg-black/10 cursor-pointer w-fit"
             >
               방문 날짜 선택하기
             </span>
@@ -144,7 +161,7 @@ export default function CampaignDetailFetcher() {
             {!campaign.isReviewCompleted && (
               <Button
                 type="button"
-                className="mt-4"
+                className="mt-4 text-xs md:text-sm lg:text-base"
                 onClick={handleCompleteReview}
               >
                 리뷰 완료 및 종료
@@ -201,18 +218,25 @@ export default function CampaignDetailFetcher() {
           </div>
         </div>
       </div>
-      <div className="border-t pt-6">
-        <h2 className="text-2xl font-bold mb-4">근처의 다른 체험</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {nearByCampaign.length > 0 &&
-            nearByCampaign.map((exp) => (
+      {nearByCampaign.length > 0 && (
+        <div className="border-t pt-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-bold mb-4">
+            근처의 다른 체험
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {nearByCampaign.map((exp) => (
               <div key={exp.id} className="border p-4 rounded-lg">
-                <h3 className="font-semibold mb-2">{exp.title}</h3>
-                <p className="text-sm text-gray-600">{exp.location}</p>
+                <h3 className="text-sm md:text-base font-semibold mb-2">
+                  {exp.title}
+                </h3>
+                <p className="text-xs md:text-sm text-gray-600">
+                  {exp.location}
+                </p>
               </div>
             ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
