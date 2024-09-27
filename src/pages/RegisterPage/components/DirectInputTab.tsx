@@ -19,7 +19,7 @@ export default function DirectInputTab() {
       <div className="mt-4">
         <label
           htmlFor="title"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 font-medium text-gray-700 text-xs sm:text-xs sm:text-sm md:text-base md:text-base"
         >
           제목 (필수)
         </label>
@@ -41,7 +41,7 @@ export default function DirectInputTab() {
       <div className="my-4">
         <label
           htmlFor="platformName"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           사이트명 (레뷰, 인스타, 미블 등)
         </label>
@@ -58,7 +58,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="reviewDeadline"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           리뷰 마감날짜 (필수)
         </label>
@@ -82,7 +82,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="serviceAmount"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           협찬비
         </label>
@@ -103,7 +103,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="extraAmount"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           추가로 사용한 비용
         </label>
@@ -124,7 +124,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="reservationDate"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           방문 날짜
         </label>
@@ -147,7 +147,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="serviceDetails"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           상품 제공 내역
         </label>
@@ -165,7 +165,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="location"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           위치
         </label>
@@ -183,7 +183,7 @@ export default function DirectInputTab() {
       <div className="mb-4">
         <label
           htmlFor="detailedViewLink"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           자세히 보기 링크
         </label>
@@ -202,7 +202,7 @@ export default function DirectInputTab() {
         <Button
           type="submit"
           disabled={directLoading}
-          className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
+          className="w-full text-xs sm:text-sm md:text-base p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500"
         >
           등록하기
         </Button>

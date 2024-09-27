@@ -11,7 +11,7 @@ export default function ContentPasteTab() {
       <div className="mt-4">
         <label
           htmlFor="siteContent"
-          className="block mb-2 text-sm font-medium text-gray-700"
+          className="block mb-2 text-xs sm:text-sm md:text-base font-medium text-gray-700"
         >
           체험단 본문 내용
         </label>
@@ -32,14 +32,14 @@ export default function ContentPasteTab() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 disabled:cursor-not-allowed"
+          className="w-full p-3 text-xs sm:text-sm md:text-base font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 disabled:cursor-not-allowed"
         >
           등록하기
         </Button>
       </div>
       <div className="mt-4 text-red-500">{error}</div>
       <div className="bg-gray-100 p-4 rounded-lg mt-4">
-        <h3 className="text-lg font-bold text-gray-800 mb-4">
+        <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-800 mb-4">
           본문 내용 등록하기 튜토리얼
         </h3>
         <ol className="list-decimal list-inside space-y-2">

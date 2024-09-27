@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 
 interface Props extends PropsWithChildren {
@@ -7,7 +8,12 @@ interface Props extends PropsWithChildren {
 
 export default function TabContent({ children, activeTab, index }: Props) {
   return (
-    <div className={`${activeTab === index ? "block" : "hidden"}`}>
+    <div
+      className={cn(
+        `${activeTab === index ? "block" : "hidden"}`,
+        "text-xs sm:text-sm md:text-base",
+      )}
+    >
       {children}
     </div>
   );
