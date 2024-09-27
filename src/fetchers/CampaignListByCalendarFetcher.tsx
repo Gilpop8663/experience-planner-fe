@@ -175,6 +175,7 @@ function EventContent(props: Props) {
   return (
     <Link
       to={`/details/${event.resource}`}
+      target="_blank"
       className={contentClassName}
     >{`${getSubtitle()}${title}`}</Link>
   );

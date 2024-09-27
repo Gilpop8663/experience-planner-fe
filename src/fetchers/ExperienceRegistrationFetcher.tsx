@@ -178,7 +178,7 @@ export default function ExperienceRegistrationFetcher() {
         </CardContent>
       </Card>
       <div className="flex justify-center p-8">
-        <Card className="w-full max-w-xs sm:max-w-lg md:max-w-xl lg:max-w-3xl  l">
+        <Card className="w-full max-w-7xl ">
           <div className="flex justify-evenly">
             <div>
               <CardHeader>

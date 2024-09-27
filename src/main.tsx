@@ -21,6 +21,7 @@ import { ACCESS_TOKEN } from "./constants/localStorage.ts";
 import { onError } from "@apollo/client/link/error";
 import PortalToastContainer from "./components/Toast/PortalToastContainer.tsx";
 import ErrorBoundary from "./components/errorBoundary/ErrorBoundary.tsx";
+import InstallPwaPrompt from "./components/InstallPwaPrompt.tsx";
 
 interface RefreshTokenResult {
   data: {
@@ -130,6 +131,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ErrorBoundary>
         <RouterProvider router={router} />
       </ErrorBoundary>
+      <InstallPwaPrompt />
       <PortalToastContainer />
     </React.StrictMode>
   </ApolloProvider>,
