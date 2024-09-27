@@ -4,7 +4,12 @@ import { useEditCampaign } from "@/hooks/mutation/campaign/useEditCampaign";
 import { useGetCampaignDetail } from "@/hooks/query/campaign/useGetCampaignDetail";
 import { useMyProfile } from "@/hooks/query/user/useMyProfile";
 import { ROUTES } from "@/router/routes";
-import { convertToLocalTime, formatInputDate, getKoreanWeekday } from "@/utils";
+import {
+  convertToLocalTime,
+  formatInputDate,
+  getEndOfDay,
+  getKoreanWeekday,
+} from "@/utils";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -128,7 +133,9 @@ export const useDirectInputRegister = () => {
       ? new Date(reservationDate).toISOString() // 사용자가 입력한 날짜를 UTC로 변환
       : new Date(0).toISOString();
 
-    const utcReviewDeadline = new Date(reviewDeadline).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
+    const endOfReviewTime = getEndOfDay(new Date(reviewDeadline));
+
+    const utcReviewDeadline = new Date(endOfReviewTime).toISOString(); // 사용자가 입력한 날짜를 UTC로 변환
 
     if (data.getCampaignDetail.ok) {
       const result = await handleEditCampaign({

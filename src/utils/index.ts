@@ -59,6 +59,20 @@ export const formatDate = (dateString?: string) => {
 };
 
 /**
+ * 날짜가 들어오면 해당 날의 23시 59분 59초로 되도록 하는 함수
+ * @param inputDate
+ * @returns
+ */
+export const getEndOfDay = (inputDate: Date) => {
+  const date = new Date(inputDate);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  return new Date(year, month, day, 23, 59, 59);
+};
+
+/**
  * @param dateString
  * @returns 2024-09-04
  */
