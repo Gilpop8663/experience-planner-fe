@@ -21,7 +21,7 @@ export default function CampaignListByCalendarFetcher() {
 
   return (
     <div>
-      <div className="py-2 text-sm">
+      <div className="py-2 text-xs md:text-sm">
         <div className="flex gap-2">
           <span>
             {year}년 {month}월 협찬 비용:
@@ -106,14 +106,14 @@ function HeaderCellContent({ date, label }: HeaderProps) {
 
   const getClassName = (dayOfWeek: number) => {
     if (dayOfWeek === 0) {
-      return "day_sunday";
+      return `${contentClassName} day_sunday`;
     }
 
     if (dayOfWeek === 6) {
-      return "day_saturday";
+      return `${contentClassName} day_saturday`;
     }
 
-    return "day_working";
+    return `${contentClassName} day_working`;
   };
   const className = getClassName(dayOfWeek);
 
@@ -125,14 +125,14 @@ function DateCellContent({ date, label }: DateHeaderProps) {
 
   const getClassName = (dayOfWeek: number) => {
     if (dayOfWeek === 0) {
-      return "day_sunday";
+      return `${contentClassName} day_sunday`;
     }
 
     if (dayOfWeek === 6) {
-      return "day_saturday";
+      return `${contentClassName} day_saturday`;
     }
 
-    return "day_working";
+    return `${contentClassName} day_working`;
   };
   const className = getClassName(dayOfWeek);
 
@@ -145,6 +145,8 @@ interface Props extends Event {
     kind: CampaignType;
   };
 }
+
+const contentClassName = "text-xs md:text-sm lg:text-base";
 
 function EventContent(props: Props) {
   const { title, event } = props;
@@ -163,10 +165,17 @@ function EventContent(props: Props) {
   };
 
   if (isNaN(Number(event.resource))) {
-    return <span>{`${getSubtitle()}${title}`}</span>;
+    return (
+      <span className={contentClassName}>{`${getSubtitle()}${title}`}</span>
+    );
   }
 
+  <span className="text-xs md:text-sm lg:text-base"></span>;
+
   return (
-    <Link to={`/details/${event.resource}`}>{`${getSubtitle()}${title}`}</Link>
+    <Link
+      to={`/details/${event.resource}`}
+      className={contentClassName}
+    >{`${getSubtitle()}${title}`}</Link>
   );
 }

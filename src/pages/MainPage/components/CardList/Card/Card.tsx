@@ -43,18 +43,20 @@ export default function Card(campaign: Campaign) {
     <div
       className={cls(
         reservationDate ? "bg-[#B6E790]" : "bg-[#FFB0B0]",
-        "w-[330px] h-[510px] rounded-sm shadow-lg py-11 px-7 flex flex-col justify-between relative overflow-scroll",
+        "w-[240px] h-[360px] sm:w-[280px] sm:h-[420px]  md:w-[300px] md:h-[460px] lg:w-[330px] lg:h-[510px] rounded-sm shadow-lg py-5 px-4 sm:py-6 md:py-8 md:px-6 lg:py-11 lg:px-7 flex flex-col justify-between relative overflow-scroll",
       )}
     >
       <div>
         <div className="flex justify-between items-center">
-          <span className="font-semibold text-2xl">{title}</span>
+          <span className="font-semibold text-base sm:text-lg md:text-xl lg:text-2xl">
+            {title}
+          </span>
           <span className="cursor-pointer relative" onClick={handleActionClick}>
             <div className="rounded-full hover:bg-black/10 p-0.5">
               <EllipsisVertical />
             </div>
             {isModalOpen && (
-              <div className="bg-white border absolute w-16 justify-center rounded-sm text-sm right-6 -top-1">
+              <div className="bg-white border absolute w-16 justify-center rounded-sm text-xs md:text-sm right-6 -top-1">
                 <Link to={`${ROUTES.REGISTER}/edit/${id}`}>
                   <button
                     className="text-center w-full border-b py-0.5 hover:bg-black/5"
@@ -81,24 +83,24 @@ export default function Card(campaign: Campaign) {
           </span>
         </div>
         <div className="flex flex-col gap-7 mt-7 font-inter">
-          <span className="text-lg">
+          <span className="text-sm md:text-base lg:text-lg">
             <span className="font-bold">리뷰마감일</span>
             <div className="font-light mt-2">{formatDate(reviewDeadline)}</div>
           </span>
           {location && (
-            <span className="text-lg">
+            <span className="text-sm md:text-base lg:text-lg">
               <span className="font-bold">장소: </span>
               <span className="font-light">{location}</span>
             </span>
           )}
           {serviceDetails && (
-            <span className="text-lg">
+            <span className="text-sm md:text-base lg:text-lg">
               <span className="font-bold">제공: </span>
               <span className="font-light break-words">{serviceDetails}</span>
             </span>
           )}
           {serviceAmount ? (
-            <span className="text-lg">
+            <span className="text-sm md:text-base lg:text-lg">
               <span className="font-bold">협찬받은 비용: </span>
               <span className="font-light break-words">
                 {serviceAmount.toLocaleString()}원
@@ -108,7 +110,7 @@ export default function Card(campaign: Campaign) {
             ""
           )}
           {extraAmount ? (
-            <span className="text-lg">
+            <span className="text-sm md:text-base lg:text-lg">
               <span className="font-bold">추가로 사용한 비용: </span>
               <span className="font-light break-words">
                 {extraAmount.toLocaleString()}원
@@ -119,7 +121,7 @@ export default function Card(campaign: Campaign) {
           )}
           <Link
             to={`/details/${id}`}
-            className="text-lg cursor-pointer font-bold hover:bg-black/10 w-fit"
+            className="text-sm md:text-base lg:text-lg cursor-pointer font-bold hover:bg-black/10 w-fit"
           >
             체험단 자세히 보기
           </Link>
@@ -127,7 +129,7 @@ export default function Card(campaign: Campaign) {
             <a
               target="_blank"
               href={detailedViewLink}
-              className="text-lg cursor-pointer font-bold hover:bg-black/10 w-fit"
+              className="text-sm md:text-base lg:text-lg cursor-pointer font-bold hover:bg-black/10 w-fit"
             >
               사이트 바로가기
             </a>
@@ -137,7 +139,7 @@ export default function Card(campaign: Campaign) {
       <div className="flex flex-col mt-4  font-inter">
         <span
           onClick={toggleOpen}
-          className="text-lg font-bold hover:bg-black/10 cursor-pointer w-fit"
+          className="text-sm md:text-base lg:text-lg font-bold hover:bg-black/10 cursor-pointer w-fit"
         >
           방문 날짜 선택하기
         </span>
@@ -145,7 +147,11 @@ export default function Card(campaign: Campaign) {
         <span className="text-sm">{formatDateTime(reservationDate)}</span>
 
         {!isReviewCompleted && (
-          <Button type="button" className="mt-4" onClick={handleCompleteReview}>
+          <Button
+            type="button"
+            className="mt-4 text-sm md:text-base lg:text-lg"
+            onClick={handleCompleteReview}
+          >
             리뷰 완료 및 종료
           </Button>
         )}
@@ -178,19 +184,19 @@ export default function Card(campaign: Campaign) {
               name="reservationDate"
               value={formData.reservationDate}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-sm md:text-base lg:text-lg w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
             <button
               type="submit"
-              className="w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
+              className="text-sm md:text-base lg:text-lg w-full p-3 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
             >
               저장하기
             </button>
             <button
               onClick={handleReservationReset}
               type="button"
-              className="w-full p-3 font-bold text-white bg-orange-600 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
+              className="text-sm md:text-base lg:text-lg w-full p-3 font-bold text-white bg-orange-600 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-blue-500 mt-4"
             >
               날짜 초기화
             </button>

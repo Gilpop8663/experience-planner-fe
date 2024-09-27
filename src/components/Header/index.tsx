@@ -7,11 +7,13 @@ export default function Header() {
 
   return (
     <div className="fixed top-0 bg-white w-full left-0 z-10">
-      <div className="h-20 px-8 border-b flex justify-between items-center">
+      <div className="h-12 sm:h-14 md:h-16 lg:h-20 px-8 border-b flex justify-between items-center">
         <Link to={ROUTES.MAIN}>
-          <span className="text-4xl">체험단 플래너</span>
+          <span className="text-base sm:text-lg md:text-2xl lg:text-4xl">
+            체험단 플래너
+          </span>
         </Link>
-        <div className="flex text-xl gap-5">
+        <div className="flex text-xs sm:text-sm md:text-base lg:text-xl gap-5">
           <Link
             to={ROUTES.INFO}
             className="hover:bg-black/10 p-2 rounded-md cursor-pointer"

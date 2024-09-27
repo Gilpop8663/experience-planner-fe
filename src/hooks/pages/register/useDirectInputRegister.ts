@@ -37,6 +37,20 @@ export const useDirectInputRegister = () => {
     element.value = element.value.replace(regex, "");
   };
 
+  const validate = () => {
+    if (formData.serviceAmount < 0 || formData.extraAmount < 0) {
+      setError("금액은 0원 이상 입력해야 합니다.");
+      return false;
+    }
+
+    if (formData.title.length < 2 || formData.title.length > 30) {
+      setError("제목은 2글자 이상 30글자 이하로 입력해야 합니다.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -103,6 +117,10 @@ export const useDirectInputRegister = () => {
       serviceAmount,
       title,
     } = formData;
+
+    if (!validate()) {
+      return;
+    }
 
     if (directLoading || editLoading) return;
 

@@ -32,6 +32,8 @@ export default function DirectInputTab() {
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="체험 제목을 입력하세요"
           autoComplete="off"
+          maxLength={30}
+          minLength={2}
           autoFocus
           required
         />

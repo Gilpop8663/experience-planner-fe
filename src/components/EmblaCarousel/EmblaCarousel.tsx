@@ -37,7 +37,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             <div key={item.id} className="">
               <div className="mb-5">
                 {numbers.includes(index) && (
-                  <span className="text-5xl text-black">{index + 1}</span>
+                  <span className="text-xl md:text-3xl lg:text-5xl text-black">
+                    {index + 1}
+                  </span>
                 )}
               </div>
               <Card {...item} />
