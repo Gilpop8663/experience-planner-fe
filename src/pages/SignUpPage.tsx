@@ -24,19 +24,22 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      <div className="">
+        <h2 className="mt-6 text-center text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900">
           회원가입
         </h2>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="mt-8 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md">
+        <div className="bg-white py-8 px-4 shadow rounded-md sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <Label htmlFor="email">이메일</Label>
+              <Label htmlFor="email" className="text-xs md:text-sm">
+                이메일
+              </Label>
               <div className="flex justify-between gap-4">
                 <Input
+                  className="text-xs md:text-sm"
                   id="email"
                   name="email"
                   type="email"
@@ -47,7 +50,7 @@ const SignUpPage: React.FC = () => {
                   onChange={handleChange}
                 />
                 <Button
-                  className="text-xs w-auto"
+                  className="text-xs md:text-sm lg:text-sm w-auto"
                   type="button"
                   onClick={handleSendVerification}
                   disabled={showVerificationField}
@@ -56,19 +59,25 @@ const SignUpPage: React.FC = () => {
                 </Button>
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-2 text-xs md:text-sm text-red-600">
+                  {errors.email}
+                </p>
               )}
             </div>
 
             {showVerificationField && (
               <>
-                <div className="text-sm mt-2">
+                <div className="text-xs md:text-sm mt-2">
                   이메일로 인증번호를 보냈습니다. 확인해주세요.
                 </div>
-                <Label htmlFor="verificationCode" className="block mt-4">
+                <Label
+                  htmlFor="verificationCode"
+                  className="block mt-4 text-xs md:text-sm"
+                >
                   인증번호
                 </Label>
                 <Input
+                  className="text-xs md:text-sm"
                   id="verificationCode"
                   name="verificationCode"
                   type="text"
@@ -78,7 +87,7 @@ const SignUpPage: React.FC = () => {
                 />
                 <Button
                   type="button"
-                  className="mt-2 text-sm"
+                  className="mt-2 text-xs md:text-sm lg:text-sm"
                   onClick={handleVerificationCode}
                   disabled={isVerificationSuccess}
                 >
@@ -87,13 +96,13 @@ const SignUpPage: React.FC = () => {
 
                 {/* 인증 성공 메시지 표시 */}
                 {isVerificationSuccess && (
-                  <p className="mt-2 text-sm text-green-600">
+                  <p className="mt-2 text-xs md:text-sm text-green-600">
                     이메일 인증이 완료되었습니다!
                   </p>
                 )}
                 {/* 인증 실패 메시지 표시 */}
                 {verificationError && (
-                  <p className="mt-2 text-sm text-red-600">
+                  <p className="mt-2 text-xs md:text-sm text-red-600">
                     {verificationError}
                   </p>
                 )}
@@ -101,9 +110,12 @@ const SignUpPage: React.FC = () => {
             )}
 
             <div>
-              <Label htmlFor="password">비밀번호</Label>
+              <Label htmlFor="password" className="text-xs md:text-sm">
+                비밀번호
+              </Label>
               <div className="mt-1 relative">
                 <Input
+                  className="text-xs md:text-sm"
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -116,7 +128,7 @@ const SignUpPage: React.FC = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute text-xs md:text-sm inset-y-0 right-0 pr-3 flex items-center"
                   onClick={handleShowPassword}
                 >
                   {showPassword ? (
@@ -126,15 +138,20 @@ const SignUpPage: React.FC = () => {
                   )}
                 </button>
                 {errors.password && (
-                  <p className="mt-2 text-sm text-red-600">{errors.password}</p>
+                  <p className="mt-2 text-xs md:text-sm text-red-600">
+                    {errors.password}
+                  </p>
                 )}
               </div>
             </div>
 
             <div>
-              <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+              <Label htmlFor="confirmPassword" className="text-xs md:text-sm">
+                비밀번호 확인
+              </Label>
               <div className="mt-1">
                 <Input
+                  className="text-xs md:text-sm"
                   id="confirmPassword"
                   name="confirmPassword"
                   type="password"
@@ -146,16 +163,18 @@ const SignUpPage: React.FC = () => {
                   onChange={handleChange}
                 />
                 {errors.confirmPassword && (
-                  <p className="mt-2 text-sm text-red-600">
+                  <p className="mt-2 text-xs md:text-sm text-red-600">
                     {errors.confirmPassword}
                   </p>
                 )}
               </div>
             </div>
             <div className="">
-              <Button type="submit">가입하기</Button>
+              <Button type="submit" className="text-xs md:text-sm lg:text-sm">
+                가입하기
+              </Button>
               {createAccountError && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="mt-2 text-xs md:text-sm text-red-600">
                   {createAccountError}
                 </p>
               )}

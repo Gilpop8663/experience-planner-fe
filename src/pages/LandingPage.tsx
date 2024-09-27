@@ -32,11 +32,11 @@ export default function LandingPage() {
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row items-center gap-8 p-8 max-w-6xl w-full">
         <div className="flex flex-col space-y-4 lg:w-1/2 w-full">
-          <h1 className="text-5xl font-bold whitespace-pre-line">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold whitespace-pre-line">
             {`체험단 일정 관리, 
             더욱 효율적으로.`}
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base md:text-lg">
             다양한 체험단 일정을 한 곳에서 무료로 관리하고, 소중한 시간을
             절약하세요.
           </p>
@@ -68,14 +68,18 @@ export default function LandingPage() {
 
       {/* Explainer Section */}
       <div className="w-full max-w-6xl mt-16 p-8 border-4 rounded-lg space-y-8">
-        <h2 className="text-3xl font-bold text-center mb-8">이용 방법</h2>
+        <h2 className="text-xl md:text-3xl font-bold text-center mb-8">
+          이용 방법
+        </h2>
 
         <div className="space-y-4">
           <div className="flex items-center justify-center space-x-4">
-            <div className="text-3xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="text-lg md:text-2xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
               1
             </div>
-            <h3 className="text-2xl font-semibold">체험 일정 확인</h3>
+            <h3 className="text-lg md:text-2xl font-semibold">
+              체험 일정 확인
+            </h3>
           </div>
           <p className="text-sm text-gray-600 text-center">
             원하는 체험단 일정을 쉽게 확인하고, 남은 D-Day를 한눈에 확인하세요.
@@ -94,10 +98,12 @@ export default function LandingPage() {
 
         <div className="space-y-4">
           <div className="flex items-center justify-center space-x-4">
-            <div className="text-3xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="text-lg md:text-2xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
               2
             </div>
-            <h3 className="text-2xl font-semibold">간편한 일정 예약</h3>
+            <h3 className="text-lg md:text-2xl font-semibold">
+              간편한 일정 예약
+            </h3>
           </div>
           <p className="text-sm text-gray-600 text-center">
             선택한 체험단 일정을 클릭만으로 간편하게 예약하세요.
@@ -118,10 +124,12 @@ export default function LandingPage() {
 
         <div className="space-y-4">
           <div className="flex items-center justify-center space-x-4">
-            <div className="text-3xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="text-lg md:text-2xl font-bold text-blue-600 bg-white border-2 border-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
               3
             </div>
-            <h3 className="text-2xl font-semibold">체험하고 리뷰 관리</h3>
+            <h3 className="text-lg md:text-2xl font-semibold">
+              체험하고 리뷰 관리
+            </h3>
           </div>
           <p className="text-sm text-gray-600 text-center">
             체험 후 리뷰를 작성하고, 체계적인 일정 관리를 무료로 누리세요.
@@ -136,43 +144,53 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <div className="w-full max-w-6xl mt-16 p-8 bg-white rounded-lg space-y-8">
-        <h2 className="text-3xl font-bold text-center mb-8">주요 기능</h2>
+        <h2 className="text-xl md:text-3xl font-bold text-center mb-8">
+          주요 기능
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">체험 일정 통합 관리</h3>
+            <h3 className="text-lg md:text-xl font-semibold">
+              체험 일정 통합 관리
+            </h3>
             <p className="text-sm text-gray-600 mt-4">
               모든 체험단 일정을 한 곳에서 관리하고, 남은 D-Day를 쉽게 확인할 수
               있어요.
             </p>
           </div>
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">간편한 일정 예약</h3>
+            <h3 className="text-lg md:text-xl font-semibold">
+              간편한 일정 예약
+            </h3>
             <p className="text-sm text-gray-600 mt-4">
               몇 번의 클릭으로 원하는 체험단 일정을 빠르게 예약할 수 있어요.
             </p>
           </div>
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">체험단 비용 계산</h3>
+            <h3 className="text-lg md:text-xl font-semibold">
+              체험단 비용 계산
+            </h3>
             <p className="text-sm text-gray-600 mt-4">
               체험단에서 제공받은 비용과 추가 비용을 월별로 쉽게 계산할 수
               있어요.
             </p>
           </div>
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">마감기한 관리</h3>
+            <h3 className="text-lg md:text-xl font-semibold">마감기한 관리</h3>
             <p className="text-sm text-gray-600 mt-4">
               등록된 일정을 남은 D-Day 순으로 관리하여 마감 기한을 쉽게 확인할
               수 있어요.
             </p>
           </div>
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">달력</h3>
+            <h3 className="text-lg md:text-xl font-semibold">달력</h3>
             <p className="text-sm text-gray-600 mt-4">
               달력에서 중요한 일정의 마감 기한과 방문 날짜를 확인해보세요.
             </p>
           </div>
           <div className="p-4 border rounded-lg">
-            <h3 className="text-xl font-semibold">여러 사이트의 체험단 관리</h3>
+            <h3 className="text-lg md:text-xl font-semibold">
+              여러 사이트의 체험단 관리
+            </h3>
             <p className="text-sm text-gray-600 mt-4">
               여러 플랫폼의 체험단 사이트를 한 곳에서 손쉽게 관리하세요.
             </p>
@@ -182,7 +200,9 @@ export default function LandingPage() {
 
       {/* Testimonials Section */}
       <div className="w-full max-w-6xl mt-16 mb-16 p-8 rounded-lg space-y-8">
-        <h2 className="text-3xl font-bold text-center mb-8">사용자 후기</h2>
+        <h2 className="text-xl md:text-3xl font-bold text-center mb-8">
+          사용자 후기
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div key={index} className="p-4 border rounded-lg space-y-4">

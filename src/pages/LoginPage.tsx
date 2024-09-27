@@ -16,19 +16,19 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      <div className="">
+        <h2 className="mt-6 text-center text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900">
           로그인
         </h2>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div className="mt-8 mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md">
+        <div className="bg-white py-8 px-4 shadow rounded-md sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-xs md:text-sm font-medium text-gray-700"
               >
                 이메일
               </label>
@@ -40,7 +40,7 @@ const LoginPage = () => {
                   autoComplete="email"
                   autoFocus
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="appearance-none text-xs md:text-sm block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -50,7 +50,7 @@ const LoginPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-xs md:text-sm font-medium text-gray-700"
               >
                 비밀번호
               </label>
@@ -61,7 +61,7 @@ const LoginPage = () => {
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   required
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="appearance-none text-xs md:text-sm block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   value={formData.password}
                   onChange={handleChange}
                 />
@@ -91,13 +91,13 @@ const LoginPage = () => {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
+                  className="ml-2 block text-xs md:text-sm text-gray-900"
                 >
                   자동 로그인
                 </label>
               </div>
 
-              <div className="text-sm">
+              <div className="text-xs md:text-sm">
                 <a
                   href={ROUTES.FORGOT_PASSWORD}
                   className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -107,10 +107,16 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {error && <div className="text-red-600 text-sm">{error}</div>}
+            {error && (
+              <div className="text-red-600 text-xs md:text-sm">{error}</div>
+            )}
 
             <div>
-              <Button type="submit" disabled={loading}>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="text-xs md:text-sm lg:text-sm"
+              >
                 로그인
               </Button>
             </div>
@@ -121,7 +127,7 @@ const LoginPage = () => {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300" />
               </div>
-              <div className="relative flex justify-center text-sm">
+              <div className="relative flex justify-center text-xs md:text-sm">
                 <span className="px-2 bg-white text-gray-500">또는</span>
               </div>
             </div>
@@ -130,7 +136,7 @@ const LoginPage = () => {
               <div className="text-center">
                 <a
                   href={ROUTES.SIGN_UP}
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-indigo-600 hover:text-indigo-500 text-xs md:text-sm"
                 >
                   계정이 없으신가요? 회원가입
                 </a>
