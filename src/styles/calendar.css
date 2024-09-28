@@ -60,8 +60,6 @@ button.rbc-input::-moz-focus-inner {
 .rbc-event-label {
   display: block;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .rbc-rtl {

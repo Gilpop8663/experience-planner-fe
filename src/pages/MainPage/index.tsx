@@ -36,7 +36,7 @@ export default function MainPage() {
           </div>
 
           {viewMode === "calendar" ? (
-            <div className="p-4 bg-white rounded-lg shadow-md">
+            <div className="p-4 bg-white rounded-lg shadow-md min-h-[1500px] md:min-h-screen">
               <Suspense fallback={<CampaignListByCalendarLoading />}>
                 <CampaignListByCalendarFetcher />
               </Suspense>
