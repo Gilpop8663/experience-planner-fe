@@ -6,6 +6,7 @@ import { useMyProfile } from "@/hooks/query/user/useMyProfile";
 export default function AdminRoute({ children }: PropsWithChildren) {
   const { user } = useMyProfile();
 
+  console.log(user);
   if (user.role !== "ADMIN") {
     return <Navigate replace to={ROUTES.HOME} />;
   }
